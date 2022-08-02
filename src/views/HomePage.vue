@@ -4,6 +4,7 @@
     <Hero />
     <Boxes />
     <Message />
+    <CallToAction />
   </main>
   <Footer />
 </template>
@@ -14,4 +15,5 @@ import Hero from "../components/homepage/Hero.vue"
 import Boxes from "../components/homepage/Boxes.vue"
 import Message from "../components/homepage/Message.vue"
 import Footer from "../components/homepage/Footer.vue"
+import CallToAction from "../components/homepage/CallToAction.vue"
 </script>

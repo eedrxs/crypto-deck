@@ -20,4 +20,12 @@
   .box-lg {
     @apply w-[31%] h-[38rem] text-3xl p-6 pb-24;
   }
+
+  .dashboard-button {
+    @apply flex items-center text-lg text-white py-3 px-5 hover:bg-[#104EAD] rounded-2xl transition cursor-pointer;
+  }
+
+  .dashboard-button-icon {
+    @apply h-8 mr-3;
+  }
 }

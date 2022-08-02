@@ -4,10 +4,13 @@
   >
     <div class="font-extrabold text-md md:text-4xl">CryptoDeck</div>
     <div class="flex gap-x-4 font-medium text-[.6rem] md:text-base">
-      <button class="hover:underline">Sign In</button>
-      <button class="bg-crypto-blue text-white py-[.4rem] px-3 rounded-md">
-        Create an account
+      <button class="hover:underline">
+        <router-link to="/user">Sign In </router-link>
       </button>
+
+      <div class="bg-crypto-blue text-white py-[.4rem] px-3 rounded-md">
+        <router-link to="/sign-up">Create an account</router-link>
+      </div>
     </div>
   </header>
 </template>
