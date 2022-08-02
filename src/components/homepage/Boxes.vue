@@ -1,7 +1,20 @@
 <template>
-  <section class="flex flex-wrap">
-    <div class="min-w-full bg-[#3A7BD5] h-[9rem] mb-4">Buidl without code</div>
-    <div class="w-[50%] bg-[#ECD454] h-[18rem]">Monitor metrics</div>
-    <div class="w-[50%] bg-[#D9D9D9] h-[18rem]">Control everything</div>
+  <section class="flex flex-wrap justify-between mt-16 lg:mt-24">
+    <div class="box lg:box-lg w-full bg-[#3A7BD5] h-[9rem] mb-3">
+      <p>
+        Buidl without <br class="lg:hidden" />
+        code
+      </p>
+    </div>
+    <div
+      class="box lg:box-lg w-[calc(50%-6px)] bg-[#ECD454] h-[18rem] lg:mt-[26rem]"
+    >
+      <p>Monitor metrics</p>
+    </div>
+    <div
+      class="box lg:box-lg w-[calc(50%-6px)] bg-[#D9D9D9] h-[18rem] lg:mt-[8rem]"
+    >
+      <p>Control everything</p>
+    </div>
   </section>
 </template>

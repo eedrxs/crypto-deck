@@ -8,9 +8,10 @@
         class="font-bold text-[1.1rem] md:text-4xl lg:text-6xl lg:leading-snug"
       >
         Create all your <br />
-        tokens in one place
+        tokens in one <br class="lg:hidden" />
+        place
       </h1>
-      <div class="flex gap-x-2 mt-2">
+      <div class="flex gap-x-2 lg:gap-x-4 mt-2">
         <div class="token-badge">ERC20</div>
         <div class="token-badge">ERC1155</div>
       </div>
@@ -26,7 +27,20 @@
 </template>
 
 <style scoped>
+@keyframes float {
+  0% {
+    transform: translatey(0px) rotateY(180deg);
+  }
+  50% {
+    transform: translatey(-20px) rotateY(180deg);
+  }
+  100% {
+    transform: translatey(0px) rotateY(180deg);
+  }
+}
+
 img {
   transform: rotateY(180deg);
+  animation: float 6s ease-in-out infinite;
 }
 </style>
