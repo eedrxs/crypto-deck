@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: Proxima Nova;
+  }
+}
+
+@layer components {
+  .token-badge {
+    @apply bg-crypto-blue text-white font-medium tracking-wider text-[.5rem] md:text-[.8rem] py-1 px-2 rounded-md;
+  }
+}
