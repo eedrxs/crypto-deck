@@ -28,4 +28,8 @@
   .dashboard-button-icon {
     @apply h-8 mr-3;
   }
+
+  .profile-popup-item {
+    @apply flex items-center text-white text-sm p-2 gap-x-3 cursor-pointer hover:bg-[hsl(216,83%,27%)] rounded-md transition;
+  }
 }
