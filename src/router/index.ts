@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import HomePage from "../views/Homepage.vue"
+import HomePage from "../views/HomePage.vue"
 import Dashboard from "../views/Dashboard.vue"
 
 const routes = [
