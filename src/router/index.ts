@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router"
 
 import HomePage from "../views/HomePage.vue"
 import Dashboard from "../views/Dashboard.vue"
+import Tokens from "../components/dashboard/Tokens.vue"
+import NewToken from "../components/dashboard/NewToken.vue"
 
 const routes = [
   {
@@ -13,6 +15,16 @@ const routes = [
     path: "/user",
     name: "DashBoard",
     component: Dashboard,
+    children: [
+      {
+        path: "tokens",
+        component: Tokens,
+      },
+      {
+        path: "new",
+        component: NewToken,
+      },
+    ],
   },
 ]
 

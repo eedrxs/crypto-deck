@@ -32,4 +32,12 @@
   .profile-popup-item {
     @apply flex items-center text-white text-sm p-2 gap-x-3 cursor-pointer hover:bg-[hsl(216,83%,27%)] rounded-md transition;
   }
+
+  .token-setup-input {
+    @apply text-lg focus:outline-[#00000015] bg-[#d9d9d980] py-2 px-3 rounded-md w-full;
+  }
+
+  .token-setup-input-label {
+    @apply font-medium text-sm;
+  }
 }

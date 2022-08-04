@@ -22,10 +22,14 @@
 </template>
 
 <script setup lang="ts">
-const tokens = [
-  { name: "Satoshi", symbol: "SAT", network: "Ethereum", type: "ERC20" },
-  { name: "hBAr", symbol: "HBAR", network: "Ethereum", type: "ERC1155" },
-  { name: "Shiba Inu", symbol: "SHIB", network: "Ethereum", type: "ERC20" },
-  { name: "Dogecoin", symbol: "DOGE", network: "Ethereum", type: "ERC1155" },
-]
+interface Token {
+  name: string
+  symbol: string
+  network: string
+  type: string
+}
+
+const props = defineProps<{
+  tokens: Token[]
+}>()
 </script>

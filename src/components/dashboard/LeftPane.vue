@@ -7,13 +7,13 @@
         CryptoDeck
       </h1>
 
-      <div class="dashboard-button">
+      <div class="dashboard-button" @click="router.push('/user/new')">
         <PlusCircleIcon class="dashboard-button-icon" /> New Token
       </div>
 
       <hr class="my-3 opacity-20" />
 
-      <div class="dashboard-button">
+      <div class="dashboard-button" @click="router.push('/user/tokens')">
         <CashIcon class="dashboard-button-icon" /> Tokens
       </div>
     </div>
@@ -36,4 +36,6 @@ import {
   CashIcon,
   DotsVerticalIcon,
 } from "@heroicons/vue/outline"
+import { useRouter } from "vue-router"
+const router = useRouter()
 </script>
