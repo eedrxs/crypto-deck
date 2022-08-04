@@ -8,7 +8,6 @@
     ]"
   >
     <LeftPane />
-    <!-- <ContentArea /> -->
     <router-view :tokens="tokens"></router-view>
     <RightPane v-if="route.fullPath === '/user/tokens'" />
   </main>

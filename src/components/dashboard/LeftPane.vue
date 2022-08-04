@@ -7,13 +7,13 @@
         CryptoDeck
       </h1>
 
-      <div class="dashboard-button" @click="router.push('/user/new')">
+      <div class="dashboard-button" @click="router.push('new')">
         <PlusCircleIcon class="dashboard-button-icon" /> New Token
       </div>
 
       <hr class="my-3 opacity-20" />
 
-      <div class="dashboard-button" @click="router.push('/user/tokens')">
+      <div class="dashboard-button" @click="router.push('tokens')">
         <CashIcon class="dashboard-button-icon" /> Tokens
       </div>
     </div>

@@ -2,7 +2,7 @@
   <section class="grid grid-cols-[1fr_1fr] mt-10 md:mt-24 lg:mt-36">
     <div class="flex flex-col justify-center font-firs">
       <p class="font-semibold text-[.5rem] md:text-sm lg:text-lg">
-        NO-CODE CRYPTO TOOL
+        MULTI-CHAIN CRYPTO PLATFORM
       </p>
       <h1
         class="font-bold text-[1.1rem] md:text-4xl lg:text-6xl lg:leading-snug"

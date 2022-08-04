@@ -2,8 +2,9 @@ import { createRouter, createWebHistory } from "vue-router"
 
 import HomePage from "../views/HomePage.vue"
 import Dashboard from "../views/Dashboard.vue"
-import Tokens from "../components/dashboard/Tokens.vue"
-import NewToken from "../components/dashboard/NewToken.vue"
+import TokensPage from "../components/dashboard/TokensPage.vue"
+import NewTokenPage from "../components/dashboard/NewTokenPage.vue"
+import ProfilePage from "../components/dashboard/ProfilePage.vue"
 
 const routes = [
   {
@@ -18,11 +19,15 @@ const routes = [
     children: [
       {
         path: "tokens",
-        component: Tokens,
+        component: TokensPage,
       },
       {
         path: "new",
-        component: NewToken,
+        component: NewTokenPage,
+      },
+      {
+        path: "profile",
+        component: ProfilePage,
       },
     ],
   },
