@@ -6,14 +6,14 @@ module.exports = {
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
+    fontFamily: {
+      firs: ['"TT Firs Neue"'],
+      proxima: ['"Proxima Nova"'],
+    },
     extend: {
       colors: {
         "crypto-blue": "#125BC9",
       },
-    },
-    fontFamily: {
-      firs: ['"TT Firs Neue"'],
-      proxima: ['"Proxima Nova"'],
     },
   },
   plugins: [require("flowbite/plugin")],

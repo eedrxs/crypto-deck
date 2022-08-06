@@ -2,8 +2,21 @@
   <router-view />
 </template>
 
-<!-- <script setup lang="ts">
-import HomePage from "./views/HomePage.vue"
-</script>
+<script setup lang="ts">
+import { onBeforeMount } from "vue"
+import { useRouter } from "vue-router"
+import { onAuthStateChanged } from "@firebase/auth"
+import { auth } from "../firebase.js"
 
-<style scoped></style> -->
+const router = useRouter()
+
+onBeforeMount(() => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      router.push("/user/tokens")
+    } else {
+      router.push("/")
+    }
+  })
+})
+</script>

@@ -1,10 +1,13 @@
+@import url("./assets/fonts/proxima-nova/stylesheet.css");
+@import url("./assets/fonts/tt-firs-neue/stylesheet.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html {
-    font-family: Proxima Nova;
+    font-family: "Proxima Nova";
   }
 }
 
@@ -34,7 +37,7 @@
   }
 
   .token-setup-input {
-    @apply text-lg focus:outline-[#00000015] bg-[#d9d9d980] py-2 px-3 rounded-md w-full;
+    @apply text-lg bg-[#d9d9d980] py-2 px-3 rounded-md w-full !border-none focus:!shadow-none;
   }
 
   .token-setup-input-label {
