@@ -1,14 +1,15 @@
 <template>
-  <router-view />
+  <router-view v-if="blockUI" />
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from "vue"
+import { onBeforeMount, ref } from "vue"
 import { useRouter } from "vue-router"
 import { onAuthStateChanged } from "@firebase/auth"
 import { auth } from "../firebase.js"
 
 const router = useRouter()
+const blockUI = ref(true)
 
 onBeforeMount(() => {
   onAuthStateChanged(auth, (user) => {
@@ -17,6 +18,7 @@ onBeforeMount(() => {
     } else {
       router.push("/")
     }
+    blockUI.value = true
   })
 })
 </script>

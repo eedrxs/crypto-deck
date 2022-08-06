@@ -1,5 +1,10 @@
 <template>
-  <aside class="flex flex-col items-center justify-between bg-crypto-blue p-6">
+  <aside
+    :class="[
+      props.sidebarOpen ? 'left-0' : '-left-[50%]',
+      'fixed min-h-screen lg:static flex flex-col items-center justify-between bg-crypto-blue p-6 transition-all',
+    ]"
+  >
     <div class="w-full">
       <h1
         class="font-firs font-bold text-white text-xl text-center mb-12 hover:cursor-pointer"
@@ -7,13 +12,25 @@
         CryptoDeck
       </h1>
 
-      <div class="dashboard-button" @click="router.push('new')">
+      <div
+        :class="[
+          route.fullPath === '/user/new' ? '!bg-[#104EAD]' : '',
+          'dashboard-button',
+        ]"
+        @click="router.push('new')"
+      >
         <PlusCircleIcon class="dashboard-button-icon" /> New Token
       </div>
 
       <hr class="my-3 opacity-20" />
 
-      <div class="dashboard-button" @click="router.push('tokens')">
+      <div
+        :class="[
+          route.fullPath === '/user/tokens' ? '!bg-[#104EAD]' : '',
+          'dashboard-button',
+        ]"
+        @click="router.push('tokens')"
+      >
         <CashIcon class="dashboard-button-icon" /> Tokens
       </div>
     </div>
@@ -36,6 +53,9 @@ import {
   CashIcon,
   DotsVerticalIcon,
 } from "@heroicons/vue/outline"
-import { useRouter } from "vue-router"
+import { useRouter, useRoute } from "vue-router"
+
+const props = defineProps<{ sidebarOpen: boolean }>()
 const router = useRouter()
+const route = useRoute()
 </script>

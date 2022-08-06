@@ -5,12 +5,16 @@
     <div class="profile-popup-item" @click="router.push('profile')">
       Profile
     </div>
-    <div class="profile-popup-item">Logout <LogoutIcon class="h-5" /></div>
+    <div @click="logOut" class="profile-popup-item">
+      Logout <LogoutIcon class="h-5" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { logOut } from "../../services/authService"
 import { LogoutIcon } from "@heroicons/vue/outline"
 import { useRouter } from "vue-router"
+
 const router = useRouter()
 </script>

@@ -1,8 +1,17 @@
 <template>
-  <section class="bg-white px-6 pt-10">
-    <h1 class="font-firs font-bold text-4xl">Tokens</h1>
+  <section
+    class="bg-white px-6 pt-10"
+    @click.stop="$emit('toggle-sidebar', false)"
+  >
+    <div class="flex justify-between items-center">
+      <MenuIcon
+        class="h-8 lg:hidden"
+        @click.stop="$emit('toggle-sidebar', true)"
+      />
+      <h1 class="font-firs font-bold text-4xl">Tokens</h1>
+    </div>
 
-    <hr class="border w-[30rem] my-3" />
+    <hr class="border w-[full] my-3" />
 
     <div class="flex flex-wrap py-4 gap-6">
       <div
@@ -22,14 +31,17 @@
 </template>
 
 <script setup lang="ts">
+import { MenuIcon } from "@heroicons/vue/outline"
+
+const props = defineProps<{
+  tokens: Token[]
+  sidebarOpen: boolean
+}>()
+
 interface Token {
   name: string
   symbol: string
   network: string
   type: string
 }
-
-const props = defineProps<{
-  tokens: Token[]
-}>()
 </script>

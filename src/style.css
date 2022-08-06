@@ -25,7 +25,7 @@
   }
 
   .dashboard-button {
-    @apply flex items-center text-lg text-white py-3 px-5 hover:bg-[#104EAD] rounded-2xl transition cursor-pointer;
+    @apply flex items-center text-lg text-white py-3 px-5 hover:bg-[#104fad63] rounded-2xl transition cursor-pointer;
   }
 
   .dashboard-button-icon {

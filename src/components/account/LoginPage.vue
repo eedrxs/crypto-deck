@@ -8,7 +8,7 @@
       >
         <div v-for="(field, key, i) in form" :key="i" class="mb-5">
           <label :for="key" class="token-setup-input-label">{{
-            field.value
+            field.label
           }}</label
           ><input
             v-model="field.value"
@@ -16,11 +16,6 @@
             class="token-setup-input"
           />
         </div>
-
-        <!-- <div class="mb-5">
-          <label for="password" class="token-setup-input-label">Password</label
-          ><input type="password" class="token-setup-input" />
-        </div> -->
 
         <button
           type="submit"
@@ -32,14 +27,14 @@
 
       <div class="flex justify-center gap-x-1 mt-3">
         <div
-          @click="logInWithGoogle"
+          @click="signInWithGoogle"
           class="text-sm lg:text-base font-medium py-3 px-4 lg:px-6 hover:bg-[#0000000c] rounded-md cursor-pointer"
         >
           Sign in with Google
         </div>
 
         <div
-          @click="logInWithGithub"
+          @click="signInWithGithub"
           class="text-sm lg:text-base font-medium py-3 px-4 lg:px-6 hover:bg-[#0000000c] rounded-md cursor-pointer"
         >
           Sign in with GitHub
@@ -89,13 +84,5 @@ const getInputType = (type: string) => {
 const login = () => {
   const { email, password } = form
   signIn(email.value, password.value)
-}
-
-const logInWithGoogle = () => {
-  signInWithGoogle()
-}
-
-const logInWithGithub = () => {
-  signInWithGithub()
 }
 </script>

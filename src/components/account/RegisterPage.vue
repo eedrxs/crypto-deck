@@ -28,14 +28,14 @@
 
       <div class="flex justify-center gap-x-1 mt-3">
         <div
-          @click="createAccountWithGoogle"
+          @click="signInWithGoogle"
           class="text-sm lg:text-base font-medium py-3 px-4 lg:px-6 hover:bg-[#0000000c] rounded-md cursor-pointer"
         >
           Sign up with Google
         </div>
 
         <div
-          @click="createAccountWithGithub"
+          @click="signInWithGithub"
           class="text-sm lg:text-base font-medium py-3 px-4 lg:px-6 hover:bg-[#0000000c] rounded-md cursor-pointer"
         >
           Sign up with GitHub
@@ -89,13 +89,5 @@ const getInputType = (type: string) => {
 const createAccount = () => {
   const { name, email, password } = form
   signUp(name.value, email.value, password.value)
-}
-
-const createAccountWithGoogle = () => {
-  signInWithGoogle()
-}
-
-const createAccountWithGithub = () => {
-  signInWithGithub()
 }
 </script>
