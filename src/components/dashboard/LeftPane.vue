@@ -1,8 +1,8 @@
 <template>
   <aside
     :class="[
-      props.sidebarOpen ? 'left-0' : '-left-[50%]',
-      'fixed min-h-screen lg:static flex flex-col items-center justify-between bg-crypto-blue p-6 transition-all',
+      props.sidebarOpen ? 'left-0' : '-left-[70%]',
+      'fixed min-h-screen md:static flex flex-col items-center justify-between bg-crypto-blue p-6 transition-all',
     ]"
   >
     <div class="w-full">
@@ -40,22 +40,27 @@
     >
       <div class="h-10 w-10 rounded-full bg-white/70 -ml-1"></div>
       <p class="text-white font-medium tracking-wide -ml-1">Idris Abd...</p>
-      <DotsVerticalIcon class="h-6 text-white/60 hover:text-white transition" />
-      <ProfilePopUp />
+      <DotsVerticalIcon
+        class="h-6 text-white/60 hover:text-white transition"
+        @click="popupOpen = !popupOpen"
+      />
+      <ProfilePopUp v-show="popupOpen" />
     </div>
   </aside>
 </template>
 
 <script setup lang="ts">
-import ProfilePopUp from "./ProfilePopUp.vue"
+import { ref } from "vue"
+import { useRouter, useRoute } from "vue-router"
 import {
   PlusCircleIcon,
   CashIcon,
   DotsVerticalIcon,
 } from "@heroicons/vue/outline"
-import { useRouter, useRoute } from "vue-router"
+import ProfilePopUp from "./ProfilePopUp.vue"
 
 const props = defineProps<{ sidebarOpen: boolean }>()
 const router = useRouter()
 const route = useRoute()
+const popupOpen = ref(false)
 </script>

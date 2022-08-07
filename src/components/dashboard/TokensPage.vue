@@ -1,6 +1,6 @@
 <template>
   <section
-    class="bg-white px-6 pt-10"
+    class="bg-white px-6 pt-10 max-h-screen"
     @click.stop="$emit('toggle-sidebar', false)"
   >
     <div class="flex justify-between items-center">
@@ -13,11 +13,19 @@
 
     <hr class="border w-[full] my-3" />
 
-    <div class="flex flex-wrap py-4 gap-6">
+    <div
+      class="flex flex-wrap py-4 px-1 gap-6 max-h-full overflow-y-auto !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-crypto-blue"
+    >
       <div
         v-for="(token, i) in tokens"
         :key="i"
-        class="flex flex-col justify-between px-4 pb-7 pt-5 h-56 w-56 bg-[#F9D423] rounded-lg hover:outline outline-3 outline-black cursor-pointer"
+        :class="[
+          token.address === selectedToken?.address
+            ? 'outline outline-black'
+            : 'hover:outline outline-[#00000023]',
+          'flex flex-col justify-between px-4 pb-7 pt-5 h-56 w-56 bg-[#F9D423] rounded-lg outline-2 cursor-pointer transition',
+        ]"
+        @click="selectToken(token.address)"
       >
         <p class="text-right font-medium mr-1">{{ token.symbol }}</p>
         <div>
@@ -32,16 +40,12 @@
 
 <script setup lang="ts">
 import { MenuIcon } from "@heroicons/vue/outline"
+import { Token } from "../../types/Token.js"
 
 const props = defineProps<{
   tokens: Token[]
   sidebarOpen: boolean
+  selectedToken: Token
+  selectToken: (address: string) => void
 }>()
-
-interface Token {
-  name: string
-  symbol: string
-  network: string
-  type: string
-}
 </script>

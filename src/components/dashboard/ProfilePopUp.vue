@@ -5,7 +5,7 @@
     <div class="profile-popup-item" @click="router.push('profile')">
       Profile
     </div>
-    <div @click="logOut" class="profile-popup-item">
+    <div class="profile-popup-item" @click="logOut">
       Logout <LogoutIcon class="h-5" />
     </div>
   </div>
@@ -17,4 +17,5 @@ import { LogoutIcon } from "@heroicons/vue/outline"
 import { useRouter } from "vue-router"
 
 const router = useRouter()
+const props = defineEmits(["toggle-popup"])
 </script>

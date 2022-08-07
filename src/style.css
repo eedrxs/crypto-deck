@@ -6,8 +6,8 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    font-family: "Proxima Nova";
+  body {
+    @apply font-proxima overflow-y-hidden;
   }
 }
 
