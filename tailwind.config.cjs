@@ -13,6 +13,12 @@ module.exports = {
     extend: {
       colors: {
         "crypto-blue": "#125BC9",
+        scrollbar: "#d9d9d9a4",
+      },
+      screens: {
+        "x-sm": "425px",
+        "x-md": "950px",
+        "x-lg": "1200px",
       },
     },
   },

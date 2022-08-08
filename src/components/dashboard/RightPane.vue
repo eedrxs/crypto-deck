@@ -1,16 +1,18 @@
 <template>
   <aside
     :class="[
-      selectedToken ? 'right-0' : 'right-[100%]',
-      'fixed min-h-screen min-w-full top-0 md:static bg-[#D9D9D9] py-14 px-6',
+      selectedToken ? 'left-0' : 'right-[100%]',
+      'fixed h-screen w-screen top-0 x-md:static x-md:h-auto x-md:w-auto bg-[#D9D9D9] py-8 x-md:py-14 px-6',
     ]"
   >
     <div
       v-if="details"
-      class="flex justify-between md:justify-end items-center"
+      class="flex justify-between x-md:justify-end items-center mb-6"
     >
-      <ArrowLeftIcon class="h-5 md:hidden" @click="selectToken('')" />
-      <p class="flex justify-end group mb-6 text-sm">
+      <div class="p-1 hover:bg-[#0000002f] rounded-full transition">
+        <ArrowLeftIcon class="h-5 x-md:hidden" @click="selectToken('')" />
+      </div>
+      <p class="flex justify-end group text-sm">
         <span class="group-hover:cursor-pointer group-hover:underline"
           >View on Etherscan</span
         >
@@ -67,7 +69,7 @@ const details = computed(() => {
       ADDRESS: props.selectedToken.address,
     }
   } else {
-    return undefined
+    return null
   }
 })
 </script>

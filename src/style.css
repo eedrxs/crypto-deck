@@ -7,7 +7,7 @@
 
 @layer base {
   body {
-    @apply font-proxima overflow-y-hidden;
+    @apply font-proxima scrollbar-thin scrollbar-track-transparent scrollbar-thumb-scrollbar;
   }
 }
 
@@ -25,11 +25,11 @@
   }
 
   .dashboard-button {
-    @apply flex items-center text-lg text-white py-3 px-5 hover:bg-[#104fad63] rounded-2xl transition cursor-pointer;
+    @apply flex items-center text-base x-md:text-lg text-white py-3 px-4 x-md:px-5 hover:bg-[#104fad63] rounded-2xl transition cursor-pointer;
   }
 
   .dashboard-button-icon {
-    @apply h-8 mr-3;
+    @apply h-7 x-md:h-8 mr-3;
   }
 
   .profile-popup-item {

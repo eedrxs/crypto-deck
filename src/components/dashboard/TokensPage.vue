@@ -1,17 +1,6 @@
 <template>
-  <section
-    class="bg-white px-6 pt-10 max-h-screen"
-    @click.stop="$emit('toggle-sidebar', false)"
-  >
-    <div class="flex justify-between items-center">
-      <MenuIcon
-        class="h-8 lg:hidden"
-        @click.stop="$emit('toggle-sidebar', true)"
-      />
-      <h1 class="font-firs font-bold text-4xl">Tokens</h1>
-    </div>
-
-    <hr class="border w-[full] my-3" />
+  <section class="bg-white px-3 pt-5 x-md:px-6 x-md:pt-10">
+    <Header page="Tokens" @toggle-sidebar="$emit('toggle-sidebar', true)" />
 
     <div
       class="flex flex-wrap py-4 px-1 gap-6 max-h-full overflow-y-auto !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-crypto-blue"
@@ -23,7 +12,7 @@
           token.address === selectedToken?.address
             ? 'outline outline-black'
             : 'hover:outline outline-[#00000023]',
-          'flex flex-col justify-between px-4 pb-7 pt-5 h-56 w-56 bg-[#F9D423] rounded-lg outline-2 cursor-pointer transition',
+          'flex flex-col aspect-square justify-between px-4 pb-7 pt-5 h-56 w-56 bg-[#F9D423] rounded-lg outline-2 cursor-pointer transition',
         ]"
         @click="selectToken(token.address)"
       >
@@ -39,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { MenuIcon } from "@heroicons/vue/outline"
+import Header from "./Header.vue"
 import { Token } from "../../types/Token.js"
 
 const props = defineProps<{
@@ -48,4 +37,5 @@ const props = defineProps<{
   selectedToken: Token
   selectToken: (address: string) => void
 }>()
+const emits = defineEmits(["toggle-sidebar"])
 </script>

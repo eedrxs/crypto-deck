@@ -1,17 +1,21 @@
 <template>
-  <form class="self-start w-[34rem] bg-[#d9d9d948] rounded-lg pt-7 pb-5 px-5">
+  <form
+    class="self-start max-w-[34rem] bg-[#d9d9d948] rounded-lg pt-7 pb-5 px-5"
+  >
     <div class="flex flex-col gap-y-1 mb-5">
       <label for="name" class="token-setup-input-label">Name:</label>
-      <input class="token-setup-input" id="name" />
+      <input type="text" class="token-setup-input" id="name" />
     </div>
 
-    <div class="flex justify-between gap-x-6 mb-5">
+    <div
+      class="flex flex-col x-sm:flex-row x-sm:justify-between gap-y-5 x-sm:gap-x-6 mb-5"
+    >
       <div>
         <label class="token-setup-input-label" for="symbol">Symbol:</label>
-        <input class="token-setup-input" id="symbol" />
+        <input type="text" class="token-setup-input" id="symbol" />
       </div>
 
-      <div class="block w-[50%]">
+      <div class="block w-[100%] x-sm:w-[50%]">
         <label class="token-setup-input-label" for="type">Type:</label>
         <select class="token-setup-input border-none" id="type">
           <option label="Select a type" disabled selected></option>
@@ -21,17 +25,19 @@
       </div>
     </div>
 
-    <div class="flex gap-x-6 mb-5">
+    <div
+      class="flex flex-col x-sm:flex-row x-sm:justify-between gap-y-5 x-sm:gap-x-6 mb-5"
+    >
       <div>
         <label class="token-setup-input-label" for="symbol"
           >Initial Supply:</label
         >
-        <input class="token-setup-input" id="symbol" />
+        <input type="number" class="token-setup-input" id="symbol" />
       </div>
 
       <div>
         <label class="token-setup-input-label" for="type">Mint Price:</label>
-        <input class="token-setup-input" id="type" />
+        <input type="number" class="token-setup-input" id="type" />
       </div>
     </div>
 

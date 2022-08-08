@@ -1,17 +1,9 @@
 <template>
   <section
-    class="bg-white px-6 pt-10"
+    class="bg-white px-3 pt-5 x-md:px-6 x-md:pt-10"
     @click.stop="$emit('toggle-sidebar', false)"
   >
-    <div class="flex justify-between items-center">
-      <MenuIcon
-        class="h-8 lg:hidden"
-        @click.stop="$emit('toggle-sidebar', true)"
-      />
-      <h1 class="font-firs font-bold text-4xl">Profile</h1>
-    </div>
-
-    <hr class="border w-[full] my-3" />
+    <Header page="Profile" @toggle-sidebar="$emit('toggle-sidebar', true)" />
 
     <div class="flex flex-wrap py-4 gap-6">
       <div class="flex gap-x-4 mt-4">
@@ -29,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { MenuIcon } from "@heroicons/vue/outline"
+import Header from "./Header.vue"
 
 const props = defineProps<{ sidebarOpen: boolean }>()
 </script>
