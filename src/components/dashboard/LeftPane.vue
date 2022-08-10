@@ -2,7 +2,7 @@
   <aside
     :class="[
       sidebarOpen ? 'left-0' : '-left-[100%]',
-      'fixed min-h-full z-10 x-md:!left-0 flex flex-col items-center justify-between bg-crypto-blue p-6 transition-all',
+      'fixed min-h-full z-20 x-md:!left-0 flex flex-col items-center justify-between bg-crypto-blue p-6 transition-all',
     ]"
   >
     <div class="w-full">

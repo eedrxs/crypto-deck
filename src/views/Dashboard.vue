@@ -11,7 +11,7 @@
     <!-- Fills the space of the left pane and overlays the page behind the left pane when activated -->
     <div
       :class="[
-        sidebarOpen ? 'bg-black opacity-40' : '-z-50',
+        sidebarOpen ? 'bg-black opacity-40 z-10' : '-z-50',
         'fixed top-0 left-0 h-screen w-screen x-md:static x-md:w-auto x-md:h-auto',
       ]"
       @click="toggleSidebar(false)"
@@ -23,6 +23,7 @@
       :selectedToken="selectedToken"
       :selectToken="selectToken"
     ></router-view>
+    <div class="hidden x-md:block"></div>
     <RightPane
       v-show="route.fullPath === '/user/tokens'"
       :selectedToken="selectedToken"
