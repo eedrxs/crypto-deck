@@ -80,6 +80,8 @@ const createToken = async () => {
     tokenForm.value
   const erc20Factory = getContract(address, abi, signer.value)
 
+  console.log(name, symbol, initialSupply, mintable, burnable, decimals)
+
   const newToken = decimals
     ? erc20Factory.createToken(
         name,

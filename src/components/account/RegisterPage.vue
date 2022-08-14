@@ -21,11 +21,14 @@
               }
             "
           />
-          <span :class="{ hidden: false }">{{ formErrors[key] }}</span>
+          <span v-show="formErrors[key]" class="text-red-500 text-sm">{{
+            formErrors[key]
+          }}</span>
         </div>
 
         <button
           type="submit"
+          :disabled="isValid"
           class="w-full bg-crypto-blue hover:bg-[hsl(216,84%,38%)] text-white font-medium rounded-md py-3 mt-8 transition"
         >
           Create Account
@@ -59,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import { validateField } from "../../services/formService"
 import {
   signUp,
@@ -86,9 +89,13 @@ const form = ref({
 })
 
 const formErrors = ref<{ [key: string]: string | null }>({
-  name: null,
-  email: null,
-  password: null,
+  name: "",
+  email: "",
+  password: "",
+})
+
+const isValid = computed(() => {
+  return Object.values(formErrors.value).some((field) => field !== null)
 })
 
 const getInputType = (type: string) => {

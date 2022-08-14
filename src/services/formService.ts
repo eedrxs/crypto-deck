@@ -46,6 +46,7 @@ const passwordValidator = (value: string): string | null => {
     return null
   }
 }
+
 export { validateField }
 
 interface Field {

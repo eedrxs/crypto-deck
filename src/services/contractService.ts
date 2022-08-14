@@ -1,6 +1,10 @@
-import { ethers } from "ethers"
+import { use } from "@maticnetwork/maticjs"
+import { Web3ClientPlugin } from "@maticnetwork/maticjs-ethers"
+import { providers, Contract } from "ethers"
 
-const provider = new ethers.providers.JsonRpcProvider(
+use(Web3ClientPlugin)
+
+const provider = new providers.JsonRpcProvider(
   import.meta.env.ALCHEMY_PROVIDER_URL,
   "maticmum"
 )
@@ -15,7 +19,7 @@ const getSigner = async () => {
 }
 
 const getContract = (address: string, abi: string[], provider: any) => {
-  return new ethers.Contract(address, abi, provider)
+  return new Contract(address, abi, provider)
 }
 
 export { getSigner, getContract }

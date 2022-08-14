@@ -112,7 +112,7 @@
     </div>
 
     <button
-      @click="$emit('create-token')"
+      @click.prevent="$emit('create-token')"
       class="w-full bg-crypto-blue hover:bg-[hsl(216,84%,38%)] text-white font-medium rounded-md py-3 transition"
     >
       Create Token
@@ -121,6 +121,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from "vue"
+import { validateField } from "../../services/formService"
 import { TokenForm } from "../../types/Token"
 
 const props = defineProps<{
@@ -128,4 +130,12 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits(["create-token"])
+
+const formErrors = computed(() => ({
+  name: null,
+  symbol: null,
+  type: null,
+  initialSupply: null,
+  decimals: null,
+}))
 </script>
