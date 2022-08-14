@@ -17,12 +17,18 @@
       @click="toggleSidebar(false)"
     ></div>
     <router-view
-      @toggle-sidebar="toggleSidebar"
       :sidebarOpen="sidebarOpen"
       :tokens="tokens"
       :selectedToken="selectedToken"
       :selectToken="selectToken"
-    ></router-view>
+      :tokenForm="tokenForm"
+      :connect="connect"
+      :signer="signer"
+      @toggle-sidebar="toggleSidebar"
+      @connect="connect"
+      @create-token="createToken"
+    />
+    <!-- Fills the space of the left pane -->
     <div class="hidden x-md:block"></div>
     <RightPane
       v-show="route.fullPath === '/user/tokens'"
@@ -35,88 +41,27 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { useRoute } from "vue-router"
+import { getContract, getSigner } from "../services/contractService"
+import { address, abi } from "../config/contract.json"
 import LeftPane from "../components/dashboard/LeftPane.vue"
 import RightPane from "../components/dashboard/RightPane.vue"
-import { Token } from "../types/Token"
+import { tokens } from "../temp"
+import { Token, TokenForm } from "../types/Token"
 
 const route = useRoute()
-
 const sidebarOpen = ref(false)
 const selectedToken = ref<Token | undefined>(undefined)
-const tokens = [
-  {
-    name: "Satoshi",
-    symbol: "SAT",
-    network: "Ethereum",
-    type: "ERC20",
-    initialSupply: 10000000000,
-    mintPrice: 0.0002,
-    address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aA",
-  },
-  {
-    name: "hBAr",
-    symbol: "HBAR",
-    network: "Ethereum",
-    type: "ERC1155",
-    initialSupply: 10000000000,
-    mintPrice: 0.00001,
-    address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aB",
-  },
-  {
-    name: "Shiba Inu",
-    symbol: "SHIB",
-    network: "Ethereum",
-    type: "ERC20",
-    initialSupply: 10000000000,
-    mintPrice: 0.00015,
-    address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aC",
-  },
-  {
-    name: "Dogecoin",
-    symbol: "DOGE",
-    network: "Ethereum",
-    type: "ERC1155",
-    initialSupply: 10000000000,
-    mintPrice: 0.00001,
-    address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aD",
-  },
-  {
-    name: "Satoshi",
-    symbol: "SAT",
-    network: "Ethereum",
-    type: "ERC20",
-    initialSupply: 10000000000,
-    mintPrice: 0.0002,
-    address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aA",
-  },
-  {
-    name: "hBAr",
-    symbol: "HBAR",
-    network: "Ethereum",
-    type: "ERC1155",
-    initialSupply: 10000000000,
-    mintPrice: 0.00001,
-    address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aB",
-  },
-  {
-    name: "Shiba Inu",
-    symbol: "SHIB",
-    network: "Ethereum",
-    type: "ERC20",
-    initialSupply: 10000000000,
-    mintPrice: 0.00015,
-    address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aC",
-  },
-  {
-    name: "Dogecoin",
-    symbol: "DOGE",
-    network: "Ethereum",
-    type: "ERC1155",
-    initialSupply: 10000000000,
-    mintPrice: 0.00001,
-    address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aD",
-  },
-]
+const signer = ref<any>(undefined)
+const tokenForm = ref<TokenForm>({
+  name: "",
+  symbol: "",
+  network: "Polygon Mumbai",
+  type: "",
+  initialSupply: null,
+  decimals: null,
+  mintable: false,
+  burnable: false,
+})
 
 const toggleSidebar = (state: boolean) => {
   sidebarOpen.value = state
@@ -124,5 +69,28 @@ const toggleSidebar = (state: boolean) => {
 
 const selectToken = (address: string) => {
   selectedToken.value = tokens.find((token) => token.address === address)
+}
+
+const connect = async () => {
+  signer.value = await getSigner()
+}
+
+const createToken = async () => {
+  const { name, symbol, initialSupply, mintable, burnable, decimals } =
+    tokenForm.value
+  const erc20Factory = getContract(address, abi, signer.value)
+
+  const newToken = decimals
+    ? erc20Factory.createToken(
+        name,
+        symbol,
+        initialSupply,
+        mintable,
+        burnable,
+        decimals
+      )
+    : erc20Factory.createToken(name, symbol, initialSupply, mintable, burnable)
+
+  console.log(newToken)
 }
 </script>

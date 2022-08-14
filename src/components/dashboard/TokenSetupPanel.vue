@@ -4,7 +4,12 @@
   >
     <div class="flex flex-col gap-y-1 mb-5">
       <label for="name" class="token-setup-input-label">Name:</label>
-      <input type="text" class="token-setup-input" id="name" />
+      <input
+        v-model="tokenForm.name"
+        type="text"
+        class="token-setup-input"
+        id="name"
+      />
     </div>
 
     <div
@@ -12,15 +17,24 @@
     >
       <div>
         <label class="token-setup-input-label" for="symbol">Symbol:</label>
-        <input type="text" class="token-setup-input" id="symbol" />
+        <input
+          v-model="tokenForm.symbol"
+          type="text"
+          class="token-setup-input"
+          id="symbol"
+        />
       </div>
 
       <div class="block w-[100%] x-sm:w-[50%]">
         <label class="token-setup-input-label" for="type">Type:</label>
-        <select class="token-setup-input border-none" id="type">
+        <select
+          v-model="tokenForm.type"
+          class="token-setup-input border-none"
+          id="type"
+        >
           <option label="Select a type" disabled selected></option>
-          <option value="">ERC20</option>
-          <option value="">ERC1155</option>
+          <option value="ERC20">ERC20</option>
+          <option value="ERC777">ERC777</option>
         </select>
       </div>
     </div>
@@ -32,12 +46,24 @@
         <label class="token-setup-input-label" for="symbol"
           >Initial Supply:</label
         >
-        <input type="number" class="token-setup-input" id="symbol" />
+        <input
+          v-model="tokenForm.initialSupply"
+          type="number"
+          class="token-setup-input"
+          id="symbol"
+        />
       </div>
 
       <div>
-        <label class="token-setup-input-label" for="type">Mint Price:</label>
-        <input type="number" class="token-setup-input" id="type" />
+        <label class="token-setup-input-label" for="type"
+          >Decimals <i>(optional)</i>:</label
+        >
+        <input
+          v-model="tokenForm.decimals"
+          type="number"
+          class="token-setup-input"
+          id="type"
+        />
       </div>
     </div>
 
@@ -50,7 +76,13 @@
           for="mintable"
           class="inline-flex relative items-center cursor-pointer"
         >
-          <input type="checkbox" value="" id="mintable" class="sr-only peer" />
+          <input
+            v-model="tokenForm.mintable"
+            type="checkbox"
+            value=""
+            id="mintable"
+            class="sr-only peer"
+          />
           <div
             class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
           ></div>
@@ -65,7 +97,13 @@
           for="burnable"
           class="inline-flex relative items-center cursor-pointer"
         >
-          <input type="checkbox" value="" id="burnable" class="sr-only peer" />
+          <input
+            v-model="tokenForm.burnable"
+            type="checkbox"
+            value=""
+            id="burnable"
+            class="sr-only peer"
+          />
           <div
             class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
           ></div>
@@ -74,10 +112,20 @@
     </div>
 
     <button
-      @click.prevent=""
+      @click="$emit('create-token')"
       class="w-full bg-crypto-blue hover:bg-[hsl(216,84%,38%)] text-white font-medium rounded-md py-3 transition"
     >
       Create Token
     </button>
   </form>
 </template>
+
+<script setup lang="ts">
+import { TokenForm } from "../../types/Token"
+
+const props = defineProps<{
+  tokenForm: TokenForm
+}>()
+
+const emits = defineEmits(["create-token"])
+</script>

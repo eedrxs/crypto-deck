@@ -5,11 +5,18 @@
     <div
       class="flex flex-col x-lg:flex-row mt-7 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-crypto-blue"
     >
-      <NetworkPanel />
+      <NetworkPanel
+        :network="tokenForm.network"
+        :signer="signer"
+        @connect="$emit('connect')"
+      />
       <hr
         class="x-lg:border-r x-lg:border-r-[#d9d9d9a4] x-lg:h-[24rem] x-lg:mx-8 my-6"
       />
-      <TokenSetupPanel />
+      <TokenSetupPanel
+        :tokenForm="tokenForm"
+        @create-token="$emit('create-token')"
+      />
     </div>
   </section>
 </template>
@@ -18,18 +25,13 @@
 import NetworkPanel from "./NetworkPanel.vue"
 import TokenSetupPanel from "./TokenSetupPanel.vue"
 import Header from "./Header.vue"
-
-interface Token {
-  name: string
-  symbol: string
-  network: string
-  type: string
-}
+import { TokenForm } from "../../types/Token"
 
 const props = defineProps<{
-  tokens: Token[]
   sidebarOpen: boolean
+  tokenForm: TokenForm
+  signer: any
 }>()
 
-const emits = defineEmits(["toggle-sidebar"])
+const emits = defineEmits(["toggle-sidebar", "connect", "create-token"])
 </script>

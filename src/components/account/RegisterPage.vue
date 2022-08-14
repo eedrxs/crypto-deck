@@ -15,7 +15,13 @@
             v-model="field.value"
             :type="getInputType(key)"
             class="token-setup-input"
+            @keyup="
+              () => {
+                formErrors[key] = validateField(field, key)
+              }
+            "
           />
+          <span :class="{ hidden: false }">{{ formErrors[key] }}</span>
         </div>
 
         <button
@@ -53,26 +59,36 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue"
+import { ref } from "vue"
+import { validateField } from "../../services/formService"
 import {
   signUp,
   signInWithGithub,
   signInWithGoogle,
 } from "../../services/authService"
 
-const form = reactive({
+const form = ref({
   name: {
     label: "Name",
     value: "",
+    required: true,
   },
   email: {
     label: "Email",
     value: "",
+    required: true,
   },
   password: {
     label: "Password",
     value: "",
+    required: true,
   },
+})
+
+const formErrors = ref<{ [key: string]: string | null }>({
+  name: null,
+  email: null,
+  password: null,
 })
 
 const getInputType = (type: string) => {
@@ -87,7 +103,7 @@ const getInputType = (type: string) => {
 }
 
 const createAccount = () => {
-  const { name, email, password } = form
+  const { name, email, password } = form.value
   signUp(name.value, email.value, password.value)
 }
 </script>

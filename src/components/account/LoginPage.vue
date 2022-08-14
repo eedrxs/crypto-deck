@@ -6,7 +6,7 @@
         @submit.prevent="login"
         class="flex flex-col px-5 pt-5 pb-6 w-full lg:w-[28rem] bg-[#d9d9d948] shadow-sm rounded-xl"
       >
-        <div v-for="(field, key, i) in form" :key="i" class="mb-5">
+        <div v-for="(field, key, i) in form" :key="i" class="relative mb-5">
           <label :for="key" class="token-setup-input-label">{{
             field.label
           }}</label
@@ -63,10 +63,12 @@ const form = reactive({
   email: {
     label: "Email",
     value: "",
+    error: "",
   },
   password: {
     label: "Password",
     value: "",
+    error: "",
   },
 })
 

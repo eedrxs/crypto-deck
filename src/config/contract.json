@@ -1,0 +1,7 @@
+{
+  "address": "0x3b63E72Af34599437f07E523D7a46e7a7F62b13A",
+  "abi": [
+    "function createToken(string memory name_, string memory symbol_, uint256 initialSupply_, bool isMintable_, bool isBurnable_) public returns (string memory, string memory, uint256, bool, bool)",
+    "function createToken(string memory name_, string memory symbol_, uint256 initialSupply_, bool isMintable_, bool isBurnable_, uint8 decimals_) public returns (string memory, string memory, uint256, bool, bool, uint8)"
+  ]
+}

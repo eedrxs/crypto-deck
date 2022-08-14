@@ -1,10 +1,4 @@
 <template>
-  <!-- <aside
-    :class="[
-      selectedToken ? 'left-0' : 'right-[100%]',
-      'fixed h-screen w-screen top-0 x-md:static x-md:h-auto x-md:w-auto bg-[#D9D9D9] py-8 x-md:py-14 px-6',
-    ]"
-  > -->
   <aside
     :class="[
       selectedToken ? 'left-0 x-md:left-auto' : 'right-[100%]',
