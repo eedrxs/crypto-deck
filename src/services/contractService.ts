@@ -1,25 +1,19 @@
-import { use } from "@maticnetwork/maticjs"
-import { Web3ClientPlugin } from "@maticnetwork/maticjs-ethers"
-import { providers, Contract } from "ethers"
+// import { ExternalProvider } from "@ethersproject/providers"
+// import { use } from "@maticnetwork/maticjs"
+// import { Web3ClientPlugin } from "@maticnetwork/maticjs-web3"
+import Web3 from "web3"
 
-use(Web3ClientPlugin)
+// use(Web3ClientPlugin)
 
-const provider = new providers.JsonRpcProvider(
-  import.meta.env.ALCHEMY_PROVIDER_URL,
-  "maticmum"
-)
-
-const getProvider = () => {
-  return provider
-}
+const web3 = new Web3(Web3.givenProvider)
 
 const getSigner = async () => {
-  await provider.send("eth_requestAccounts", [])
-  return provider.getSigner()
+  await window.ethereum.send("eth_requestAccounts")
+  return web3.eth.currentProvider
 }
 
-const getContract = (address: string, abi: string[], provider: any) => {
-  return new Contract(address, abi, provider)
+const getContract = (abi: any, address: string) => {
+  return new web3.eth.Contract(abi, address)
 }
 
 export { getSigner, getContract }

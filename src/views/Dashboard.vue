@@ -42,7 +42,7 @@
 import { ref } from "vue"
 import { useRoute } from "vue-router"
 import { getContract, getSigner } from "../services/contractService"
-import { address, abi } from "../config/contract.json"
+import { address, jsonAbi } from "../config/contract.json"
 import LeftPane from "../components/dashboard/LeftPane.vue"
 import RightPane from "../components/dashboard/RightPane.vue"
 import { tokens } from "../temp"
@@ -78,12 +78,10 @@ const connect = async () => {
 const createToken = async () => {
   const { name, symbol, initialSupply, mintable, burnable, decimals } =
     tokenForm.value
-  const erc20Factory = getContract(address, abi, signer.value)
-
-  console.log(name, symbol, initialSupply, mintable, burnable, decimals)
+  const erc20Factory = getContract(jsonAbi, address)
 
   const newToken = decimals
-    ? erc20Factory.createToken(
+    ? erc20Factory.methods.createTokenDecimals(
         name,
         symbol,
         initialSupply,
@@ -91,7 +89,13 @@ const createToken = async () => {
         burnable,
         decimals
       )
-    : erc20Factory.createToken(name, symbol, initialSupply, mintable, burnable)
+    : erc20Factory.methods.createToken(
+        name,
+        symbol,
+        initialSupply,
+        mintable,
+        burnable
+      )
 
   console.log(newToken)
 }

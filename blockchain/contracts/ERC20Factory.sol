@@ -31,7 +31,7 @@ contract ERC20Factory {
         return (name_, symbol_, initialSupply_, isMintable_, isBurnable_);
     }
 
-    function createToken(
+    function createTokenDecimals(
         string memory name_,
         string memory symbol_,
         uint256 initialSupply_,
