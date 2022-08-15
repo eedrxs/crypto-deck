@@ -28,13 +28,18 @@
       <div class="block w-[100%] x-sm:w-[50%]">
         <label class="token-setup-input-label" for="type">Type:</label>
         <select
-          v-model="tokenForm.type"
+          v-model="tokenForm.tokenType"
           class="token-setup-input border-none"
           id="type"
         >
           <option label="Select a type" disabled selected></option>
-          <option value="ERC20">ERC20</option>
-          <option value="ERC777">ERC777</option>
+          <option
+            v-for="(tokenType, i) in tokenTypes"
+            :key="i"
+            :value="tokenType"
+          >
+            {{ tokenType }}
+          </option>
         </select>
       </div>
     </div>
@@ -123,10 +128,11 @@
 <script setup lang="ts">
 import { ref, computed } from "vue"
 import { validateField } from "../../services/formService"
-import { TokenForm } from "../../types/Token"
+import { TokenForm, Networks } from "../../types/Token"
 
 const props = defineProps<{
   tokenForm: TokenForm
+  tokenTypes: Networks[string]["tokenTypes"]
 }>()
 
 const emits = defineEmits(["create-token"])

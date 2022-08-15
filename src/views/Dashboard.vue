@@ -22,10 +22,12 @@
       :selectedToken="selectedToken"
       :selectToken="selectToken"
       :tokenForm="tokenForm"
-      :connect="connect"
+      :connect="connectWallet"
       :signer="signer"
+      :networks="networks"
       @toggle-sidebar="toggleSidebar"
-      @connect="connect"
+      @network-change=""
+      @connect-wallet="connectWallet"
       @create-token="createToken"
     />
     <!-- Fills the space of the left pane -->
@@ -39,10 +41,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import { useRoute } from "vue-router"
-import { getContract, getSigner } from "../services/contractService"
-import { address, jsonAbi } from "../config/contract.json"
+import { getNetworkLibrary } from "../services/contractService"
+import networks from "../config/networks.json"
 import LeftPane from "../components/dashboard/LeftPane.vue"
 import RightPane from "../components/dashboard/RightPane.vue"
 import { tokens } from "../temp"
@@ -51,16 +53,20 @@ import { Token, TokenForm } from "../types/Token"
 const route = useRoute()
 const sidebarOpen = ref(false)
 const selectedToken = ref<Token | undefined>(undefined)
+
 const signer = ref<any>(undefined)
 const tokenForm = ref<TokenForm>({
+  selectedNetwork: "Polygon Mumbai",
+  tokenType: "",
   name: "",
   symbol: "",
-  network: "Polygon Mumbai",
-  type: "",
   initialSupply: null,
   decimals: null,
   mintable: false,
   burnable: false,
+})
+const networkLib = computed(() => {
+  return getNetworkLibrary(tokenForm.value.selectedNetwork)
 })
 
 const toggleSidebar = (state: boolean) => {
@@ -71,35 +77,14 @@ const selectToken = (address: string) => {
   selectedToken.value = tokens.find((token) => token.address === address)
 }
 
-const connect = async () => {
-  signer.value = await getSigner()
+const connectWallet = async () => {
+  signer.value = await networkLib.value.getSigner()
 }
 
 const createToken = async () => {
-  const { name, symbol, initialSupply, mintable, burnable, decimals } =
+  const newToken = await networkLib.value.factoryContract(
+    signer.value,
     tokenForm.value
-  const options = {
-    from: signer.value.selectedAddress,
-    gas: 5000000,
-    gasPrice: "2000000",
-  }
-  const erc20Factory = getContract(jsonAbi, address, options)
-
-  const newToken = decimals
-    ? await erc20Factory.methods
-        .createTokenDecimals(
-          name,
-          symbol,
-          initialSupply,
-          mintable,
-          burnable,
-          decimals
-        )
-        .send()
-    : await erc20Factory.methods
-        .createToken(name, symbol, initialSupply, mintable, burnable)
-        .send()
-
-  console.log(newToken)
+  )
 }
 </script>

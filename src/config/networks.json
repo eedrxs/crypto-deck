@@ -1,0 +1,10 @@
+{
+  "Polygon Mumbai": {
+    "name": "Polygon Mumbai",
+    "tokenTypes": ["ERC20", "ERC777"]
+  },
+  "Ethereum": {
+    "name": "Ethereum",
+    "tokenTypes": ["ERC20", "ERC777"]
+  }
+}

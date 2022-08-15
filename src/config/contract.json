@@ -1,139 +1,141 @@
 {
+  "verification": "https://mumbai.polygonscan.com/address/0xC1778ddb6a66c76B6E3e1f82990CF0F3Fd440276#code",
   "oldAddress": "0x3b63E72Af34599437f07E523D7a46e7a7F62b13A",
-  "address": "0xC1778ddb6a66c76B6E3e1f82990CF0F3Fd440276",
-  "abi": [
+  "oldAbi": [
     "function createToken(string memory name_, string memory symbol_, uint256 initialSupply_, bool isMintable_, bool isBurnable_) public returns (string memory, string memory, uint256, bool, bool)",
     "function createTokenDecimals(string memory name_, string memory symbol_, uint256 initialSupply_, bool isMintable_, bool isBurnable_, uint8 decimals_) public returns (string memory, string memory, uint256, bool, bool, uint8)"
   ],
-  "verification": "https://mumbai.polygonscan.com/address/0xC1778ddb6a66c76B6E3e1f82990CF0F3Fd440276#code",
-  "jsonAbi": [
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "name_",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "symbol_",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "initialSupply_",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bool",
-          "name": "isMintable_",
-          "type": "bool"
-        },
-        {
-          "internalType": "bool",
-          "name": "isBurnable_",
-          "type": "bool"
-        }
-      ],
-      "name": "createToken",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        },
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "name_",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "symbol_",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "initialSupply_",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bool",
-          "name": "isMintable_",
-          "type": "bool"
-        },
-        {
-          "internalType": "bool",
-          "name": "isBurnable_",
-          "type": "bool"
-        },
-        {
-          "internalType": "uint8",
-          "name": "decimals_",
-          "type": "uint8"
-        }
-      ],
-      "name": "createTokenDecimals",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        },
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        },
-        {
-          "internalType": "uint8",
-          "name": "",
-          "type": "uint8"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ]
+  "polygonMumbai": {
+    "address": "0xC1778ddb6a66c76B6E3e1f82990CF0F3Fd440276",
+    "abi": [
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "name_",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "symbol_",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "initialSupply_",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isMintable_",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "isBurnable_",
+            "type": "bool"
+          }
+        ],
+        "name": "createToken",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "name_",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "symbol_",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "initialSupply_",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isMintable_",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "isBurnable_",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint8",
+            "name": "decimals_",
+            "type": "uint8"
+          }
+        ],
+        "name": "createTokenDecimals",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint8",
+            "name": "",
+            "type": "uint8"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ]
+  }
 }
