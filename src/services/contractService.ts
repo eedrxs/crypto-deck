@@ -8,12 +8,20 @@ import Web3 from "web3"
 const web3 = new Web3(Web3.givenProvider)
 
 const getSigner = async () => {
-  await window.ethereum.send("eth_requestAccounts")
+  await window.ethereum.request({ method: "eth_requestAccounts" })
+  console.log(web3.eth.currentProvider)
+
   return web3.eth.currentProvider
 }
 
-const getContract = (abi: any, address: string) => {
-  return new web3.eth.Contract(abi, address)
+const getContract = (abi: any, address: string, options: Options) => {
+  return new web3.eth.Contract(abi, address, options)
 }
 
 export { getSigner, getContract }
+
+interface Options {
+  from: string
+  gasPrice: string
+  gas?: number
+}

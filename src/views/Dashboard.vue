@@ -78,24 +78,27 @@ const connect = async () => {
 const createToken = async () => {
   const { name, symbol, initialSupply, mintable, burnable, decimals } =
     tokenForm.value
-  const erc20Factory = getContract(jsonAbi, address)
+  const options = {
+    from: signer.value.selectedAddress,
+    gas: 5000000,
+    gasPrice: "2000000",
+  }
+  const erc20Factory = getContract(jsonAbi, address, options)
 
   const newToken = decimals
-    ? erc20Factory.methods.createTokenDecimals(
-        name,
-        symbol,
-        initialSupply,
-        mintable,
-        burnable,
-        decimals
-      )
-    : erc20Factory.methods.createToken(
-        name,
-        symbol,
-        initialSupply,
-        mintable,
-        burnable
-      )
+    ? await erc20Factory.methods
+        .createTokenDecimals(
+          name,
+          symbol,
+          initialSupply,
+          mintable,
+          burnable,
+          decimals
+        )
+        .send()
+    : await erc20Factory.methods
+        .createToken(name, symbol, initialSupply, mintable, burnable)
+        .send()
 
   console.log(newToken)
 }
