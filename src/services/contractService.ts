@@ -1,6 +1,6 @@
 import Web3 from "web3"
 import { polygonMumbai } from "../config/contract.json"
-import { writeToDb } from "./dbService"
+import { writeDocToDb } from "./dbService"
 import { auth } from "../../firebase"
 import { serverTimestamp } from "@firebase/firestore"
 
@@ -68,7 +68,7 @@ function addPolygonTokenToDb(
   } = tokenData
   const { contractAddress } = tokenCreationEvent.returnValues
 
-  writeToDb("users", auth.currentUser?.uid as any as string, "tokens", {
+  writeDocToDb("users", auth.currentUser?.uid as any as string, "tokens", {
     name,
     symbol,
     network: "Polygon Mumbai",

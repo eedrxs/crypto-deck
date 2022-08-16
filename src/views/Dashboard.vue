@@ -41,17 +41,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount } from "vue"
+import { ref, computed, onMounted } from "vue"
 import { useRoute } from "vue-router"
+import { readDocsFromDb } from "../services/dbService"
 import { getNetworkLibrary } from "../services/contractService"
+import { auth } from "../../firebase"
 import networks from "../config/networks.json"
 import LeftPane from "../components/dashboard/LeftPane.vue"
 import RightPane from "../components/dashboard/RightPane.vue"
-import { tokens } from "../temp"
+// import { tokens } from "../temp"
 import { Token, TokenForm } from "../types/Token"
 
 const route = useRoute()
 const sidebarOpen = ref(false)
+const tokens = ref([])
 const selectedToken = ref<Token | undefined>(undefined)
 
 const tokenForm = ref<TokenForm>({
@@ -74,7 +77,9 @@ function toggleSidebar(state: boolean) {
 }
 
 function selectToken(address: string) {
-  selectedToken.value = tokens.find((token) => token.address === address)
+  selectedToken.value = tokens.value.find(
+    (token: any) => token.address === address
+  )
 }
 
 async function connectWallet() {
@@ -89,7 +94,12 @@ async function createToken() {
   console.log(newToken)
 }
 
-// onBeforeMount(async () => {
-//   tokens
-// }),
+onMounted(async () => {
+  tokens.value = await readDocsFromDb(
+    "users",
+    auth.currentUser?.uid as string,
+    "tokens"
+  )
+  console.log(tokens.value)
+})
 </script>

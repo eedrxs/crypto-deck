@@ -4,16 +4,26 @@ import {
   addDoc,
   deleteDoc,
   setDoc,
+  getDocs,
   updateDoc,
   Timestamp,
+  orderBy,
+  query,
 } from "@firebase/firestore"
 import { db } from "../../firebase"
 import { Token } from "../types/Token"
 import { UserDetails } from "../types/UserCredential"
 
-// type WriteDoc = (collectionID: any, docID: any, data: any) => any
+interface ReadDocsFromDb {
+  (collectionId: string): Promise<any>
+  (
+    collectionId: string,
+    documentId: string,
+    subCollectionId: string
+  ): Promise<any>
+}
 
-interface WriteToDb<Data> {
+interface WriteDocToDb<Data> {
   (collectionId: string, documentId: string, data: Data): Promise<void>
   (
     collectionId: string,
@@ -23,9 +33,33 @@ interface WriteToDb<Data> {
   ): Promise<void>
 }
 
-// const readFromDb
+const readDocsFromDb: ReadDocsFromDb = async (
+  collectionId: string,
+  documentId?: string,
+  subCollectionId?: string
+) => {
+  if (documentId && subCollectionId) {
+    const subcollectionRef = collection(
+      db,
+      collectionId,
+      documentId,
+      subCollectionId
+    )
+    const q = query(subcollectionRef, orderBy("createdAt", "asc"))
+    const querySnapshot = await getDocs(q)
+    let result: any = []
+    querySnapshot.forEach((doc) => result.push(doc.data()))
+    return result
+  } else {
+    const collectionRef = collection(db, collectionId)
+    const querySnapshot = await getDocs(collectionRef)
+    let result: any = []
+    querySnapshot.forEach((doc) => result.push(doc.data()))
+    return result
+  }
+}
 
-const writeToDb: WriteToDb<any> = async (
+const writeDocToDb: WriteDocToDb<any> = async (
   collectionId: string,
   documentId: string,
   dataOrSubcollectionId: string | UserDetails,
@@ -48,4 +82,4 @@ const writeToDb: WriteToDb<any> = async (
 
 const updateDB = () => {}
 
-export { writeToDb, updateDB }
+export { readDocsFromDb, writeDocToDb, updateDB }
