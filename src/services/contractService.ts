@@ -2,6 +2,7 @@ import Web3 from "web3"
 import { polygonMumbai } from "../config/contract.json"
 import { writeToDb } from "./dbService"
 import { auth } from "../../firebase"
+import { serverTimestamp } from "@firebase/firestore"
 
 const web3 = new Web3(Web3.givenProvider)
 
@@ -11,7 +12,6 @@ const getEthereumSigner = async () => {
 }
 
 const createPolygonToken = async (signer: any, tokenData: any) => {
-  const DEFAULT_DECIMALS = 18
   const {
     name,
     symbol,
@@ -19,7 +19,7 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
     mintable,
     burnable,
     decimals,
-    tokenType: type,
+    tokenType,
   } = tokenData
   const { abi, address, gas, gasPrice } = polygonMumbai
   const options = {
@@ -29,7 +29,9 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
   }
   const erc20Factory = new web3.eth.Contract(abi as any, address, options)
   const filter = { creatorAddress: signer.selectedAddress }
-  erc20Factory.events.TokenCreated(filter, (error, event) => {})
+  erc20Factory.events.TokenCreated(filter, (error: any, event: any) =>
+    addPolygonTokenToDb(tokenData, event, error)
+  )
 
   const newToken = decimals
     ? await erc20Factory?.methods
@@ -46,16 +48,38 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
         .createToken(name, symbol, initialSupply, mintable, burnable)
         .send()
 
-  writeToDb("users", auth.currentUser as any as string, "tokens", {
+  return newToken
+}
+
+function addPolygonTokenToDb(
+  tokenData: any,
+  tokenCreationEvent: any,
+  error: any
+) {
+  const DEFAULT_DECIMALS = 18
+  const {
+    name,
+    symbol,
+    initialSupply,
+    mintable,
+    burnable,
+    decimals,
+    tokenType,
+  } = tokenData
+  const { contractAddress } = tokenCreationEvent.returnValues
+
+  writeToDb("users", auth.currentUser?.uid as any as string, "tokens", {
     name,
     symbol,
     network: "Polygon Mumbai",
-    type,
+    type: tokenType,
     initialSupply,
     decimals: decimals || DEFAULT_DECIMALS,
+    address: contractAddress,
+    mintable,
+    burnable,
+    createdAt: serverTimestamp(),
   })
-
-  return newToken
 }
 
 const getNetworkLibrary = (network: string) => {

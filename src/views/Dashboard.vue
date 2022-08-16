@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue"
+import { ref, computed, onBeforeMount } from "vue"
 import { useRoute } from "vue-router"
 import { getNetworkLibrary } from "../services/contractService"
 import networks from "../config/networks.json"
@@ -88,4 +88,8 @@ async function createToken() {
   )
   console.log(newToken)
 }
+
+// onBeforeMount(async () => {
+//   tokens
+// }),
 </script>

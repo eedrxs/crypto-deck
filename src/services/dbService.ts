@@ -13,7 +13,7 @@ import { UserDetails } from "../types/UserCredential"
 
 // type WriteDoc = (collectionID: any, docID: any, data: any) => any
 
-interface WriteDoc<Data> {
+interface WriteToDb<Data> {
   (collectionId: string, documentId: string, data: Data): Promise<void>
   (
     collectionId: string,
@@ -23,17 +23,26 @@ interface WriteDoc<Data> {
   ): Promise<void>
 }
 
-const writeToDb: WriteDoc<any> = async (
+// const readFromDb
+
+const writeToDb: WriteToDb<any> = async (
   collectionId: string,
   documentId: string,
   dataOrSubcollectionId: string | UserDetails,
   data?: Token
 ) => {
   if (data && typeof dataOrSubcollectionId === "string") {
-    await setDoc(doc(db, collectionId, documentId, dataOrSubcollectionId), data)
+    const subcollectionRef = collection(
+      db,
+      collectionId,
+      documentId,
+      dataOrSubcollectionId
+    )
+    await setDoc(doc(subcollectionRef), data)
   }
   if (typeof dataOrSubcollectionId !== "string") {
-    await setDoc(doc(db, collectionId, documentId), dataOrSubcollectionId)
+    const docRef = doc(db, collectionId, documentId)
+    await setDoc(docRef, dataOrSubcollectionId)
   }
 }
 
