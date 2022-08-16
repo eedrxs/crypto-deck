@@ -7,6 +7,8 @@
   ],
   "polygonMumbai": {
     "address": "0xC1778ddb6a66c76B6E3e1f82990CF0F3Fd440276",
+    "gas": 5000000,
+    "gasPrice": "70000000000",
     "abi": [
       {
         "inputs": [

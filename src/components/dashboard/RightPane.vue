@@ -65,7 +65,7 @@ const details = computed(() => {
       NETWORK: props.selectedToken.network,
       TYPE: props.selectedToken.type,
       "INITIAL SUPPLY": props.selectedToken.initialSupply,
-      "MINT PRICE": props.selectedToken.mintPrice + " ETH",
+      DECIMALS: props.selectedToken.decimals,
       ADDRESS: props.selectedToken.address,
     }
   } else {

@@ -1,21 +1,31 @@
 import Web3 from "web3"
 import { polygonMumbai } from "../config/contract.json"
+import { writeToDb } from "./dbService"
+import { auth } from "../../firebase"
 
 const web3 = new Web3(Web3.givenProvider)
 
-const getSigner = async () => {
+const getEthereumSigner = async () => {
   await window.ethereum.request({ method: "eth_requestAccounts" })
   return web3.eth.currentProvider
 }
 
 const createPolygonToken = async (signer: any, tokenData: any) => {
-  const { name, symbol, initialSupply, mintable, burnable, decimals } =
-    tokenData
-  const { abi, address } = polygonMumbai
+  const DEFAULT_DECIMALS = 18
+  const {
+    name,
+    symbol,
+    initialSupply,
+    mintable,
+    burnable,
+    decimals,
+    tokenType: type,
+  } = tokenData
+  const { abi, address, gas, gasPrice } = polygonMumbai
   const options = {
     from: signer.selectedAddress,
-    gas: 5000000,
-    gasPrice: "200000000",
+    gas,
+    gasPrice,
   }
   const erc20Factory = new web3.eth.Contract(abi as any, address, options)
   const newToken = decimals
@@ -32,16 +42,32 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
     : await erc20Factory?.methods
         .createToken(name, symbol, initialSupply, mintable, burnable)
         .send()
+
+  writeToDb("users", auth.currentUser as any as string, "tokens", {
+    name,
+    symbol,
+    network: "Polygon Mumbai",
+    type,
+    initialSupply,
+    decimals: decimals || DEFAULT_DECIMALS,
+  })
+
   return newToken
 }
 
 const getNetworkLibrary = (network: string) => {
   switch (network) {
     case "Polygon Mumbai":
-      return { getSigner: getSigner, factoryContract: createPolygonToken }
+      return {
+        getSigner: getEthereumSigner,
+        factoryContract: createPolygonToken,
+      }
 
     default:
-      return { getSigner: getSigner, factoryContract: createPolygonToken }
+      return {
+        getSigner: getEthereumSigner,
+        factoryContract: createPolygonToken,
+      }
   }
 }
 

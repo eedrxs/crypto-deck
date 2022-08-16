@@ -5,7 +5,7 @@ export const tokens = [
     network: "Ethereum",
     type: "ERC20",
     initialSupply: 10000000000,
-    mintPrice: 0.0002,
+    decimals: 0.0002,
     address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aA",
   },
   {
@@ -14,7 +14,7 @@ export const tokens = [
     network: "Ethereum",
     type: "ERC1155",
     initialSupply: 10000000000,
-    mintPrice: 0.00001,
+    decimals: 0.00001,
     address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aB",
   },
   {
@@ -23,7 +23,7 @@ export const tokens = [
     network: "Ethereum",
     type: "ERC20",
     initialSupply: 10000000000,
-    mintPrice: 0.00015,
+    decimals: 0.00015,
     address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aC",
   },
   {
@@ -32,7 +32,7 @@ export const tokens = [
     network: "Ethereum",
     type: "ERC1155",
     initialSupply: 10000000000,
-    mintPrice: 0.00001,
+    decimals: 0.00001,
     address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aD",
   },
   {
@@ -41,7 +41,7 @@ export const tokens = [
     network: "Ethereum",
     type: "ERC20",
     initialSupply: 10000000000,
-    mintPrice: 0.0002,
+    decimals: 0.0002,
     address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aA",
   },
   {
@@ -50,7 +50,7 @@ export const tokens = [
     network: "Ethereum",
     type: "ERC1155",
     initialSupply: 10000000000,
-    mintPrice: 0.00001,
+    decimals: 0.00001,
     address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aB",
   },
   {
@@ -59,7 +59,7 @@ export const tokens = [
     network: "Ethereum",
     type: "ERC20",
     initialSupply: 10000000000,
-    mintPrice: 0.00015,
+    decimals: 0.00015,
     address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aC",
   },
   {
@@ -68,7 +68,7 @@ export const tokens = [
     network: "Ethereum",
     type: "ERC1155",
     initialSupply: 10000000000,
-    mintPrice: 0.00001,
+    decimals: 0.00001,
     address: "0x9907A0cF64Ec9Fbf6Ed8FD4971090DE88222a9aD",
   },
 ]

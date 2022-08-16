@@ -8,13 +8,35 @@ import {
   Timestamp,
 } from "@firebase/firestore"
 import { db } from "../../firebase"
+import { Token } from "../types/Token"
+import { UserDetails } from "../types/UserCredential"
 
-type WriteDoc = (collectionID: any, docID: any, data: any) => any
+// type WriteDoc = (collectionID: any, docID: any, data: any) => any
 
-const writeDoc: WriteDoc = async (collectionID, docID, data) => {
-  await setDoc(doc(db, collectionID, docID), data)
+interface WriteDoc<Data> {
+  (collectionId: string, documentId: string, data: Data): Promise<void>
+  (
+    collectionId: string,
+    documentId: string,
+    subcollectionId: string,
+    data: Data
+  ): Promise<void>
+}
+
+const writeToDb: WriteDoc<any> = async (
+  collectionId: string,
+  documentId: string,
+  dataOrSubcollectionId: string | UserDetails,
+  data?: Token
+) => {
+  if (data && typeof dataOrSubcollectionId === "string") {
+    await setDoc(doc(db, collectionId, documentId, dataOrSubcollectionId), data)
+  }
+  if (typeof dataOrSubcollectionId !== "string") {
+    await setDoc(doc(db, collectionId, documentId), dataOrSubcollectionId)
+  }
 }
 
 const updateDB = () => {}
 
-export { writeDoc, updateDB }
+export { writeToDb, updateDB }

@@ -54,7 +54,6 @@ const route = useRoute()
 const sidebarOpen = ref(false)
 const selectedToken = ref<Token | undefined>(undefined)
 
-const signer = ref<any>(undefined)
 const tokenForm = ref<TokenForm>({
   selectedNetwork: "Polygon Mumbai",
   tokenType: "",
@@ -65,26 +64,28 @@ const tokenForm = ref<TokenForm>({
   mintable: false,
   burnable: false,
 })
-const networkLib = computed(() => {
+const signer = ref<any>(null)
+const networkLibrary = computed(() => {
   return getNetworkLibrary(tokenForm.value.selectedNetwork)
 })
 
-const toggleSidebar = (state: boolean) => {
+function toggleSidebar(state: boolean) {
   sidebarOpen.value = state
 }
 
-const selectToken = (address: string) => {
+function selectToken(address: string) {
   selectedToken.value = tokens.find((token) => token.address === address)
 }
 
-const connectWallet = async () => {
-  signer.value = await networkLib.value.getSigner()
+async function connectWallet() {
+  signer.value = await networkLibrary.value.getSigner()
 }
 
-const createToken = async () => {
-  const newToken = await networkLib.value.factoryContract(
+async function createToken() {
+  const newToken = await networkLibrary.value.factoryContract(
     signer.value,
     tokenForm.value
   )
+  console.log(newToken)
 }
 </script>
