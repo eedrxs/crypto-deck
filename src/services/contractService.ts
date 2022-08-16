@@ -28,6 +28,9 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
     gasPrice,
   }
   const erc20Factory = new web3.eth.Contract(abi as any, address, options)
+  const filter = { creatorAddress: signer.selectedAddress }
+  erc20Factory.events.TokenCreated(filter, (error, event) => {})
+
   const newToken = decimals
     ? await erc20Factory?.methods
         .createTokenDecimals(

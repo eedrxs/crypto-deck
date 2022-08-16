@@ -1,15 +1,35 @@
 {
-  "verification": "https://mumbai.polygonscan.com/address/0xC1778ddb6a66c76B6E3e1f82990CF0F3Fd440276#code",
+  "verification": "https://mumbai.polygonscan.com/address/0xA785C0F8F3F0ff1CBf96F31f5844C8B5b1E945C0#code",
   "oldAddress": "0x3b63E72Af34599437f07E523D7a46e7a7F62b13A",
   "oldAbi": [
     "function createToken(string memory name_, string memory symbol_, uint256 initialSupply_, bool isMintable_, bool isBurnable_) public returns (string memory, string memory, uint256, bool, bool)",
     "function createTokenDecimals(string memory name_, string memory symbol_, uint256 initialSupply_, bool isMintable_, bool isBurnable_, uint8 decimals_) public returns (string memory, string memory, uint256, bool, bool, uint8)"
   ],
   "polygonMumbai": {
-    "address": "0xC1778ddb6a66c76B6E3e1f82990CF0F3Fd440276",
-    "gas": 5000000,
+    "formerAddress": "0xC1778ddb6a66c76B6E3e1f82990CF0F3Fd440276",
+    "gas": 4000000,
     "gasPrice": "70000000000",
+    "address": "0xA785C0F8F3F0ff1CBf96F31f5844C8B5b1E945C0",
     "abi": [
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "contractAddress",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "creatorAddress",
+            "type": "address"
+          }
+        ],
+        "name": "TokenCreated",
+        "type": "event"
+      },
       {
         "inputs": [
           {
@@ -41,29 +61,14 @@
         "name": "createToken",
         "outputs": [
           {
-            "internalType": "string",
+            "internalType": "address",
             "name": "",
-            "type": "string"
+            "type": "address"
           },
           {
-            "internalType": "string",
+            "internalType": "address",
             "name": "",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
+            "type": "address"
           }
         ],
         "stateMutability": "nonpayable",
@@ -105,34 +110,14 @@
         "name": "createTokenDecimals",
         "outputs": [
           {
-            "internalType": "string",
+            "internalType": "address",
             "name": "",
-            "type": "string"
+            "type": "address"
           },
           {
-            "internalType": "string",
+            "internalType": "address",
             "name": "",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          },
-          {
-            "internalType": "uint8",
-            "name": "",
-            "type": "uint8"
+            "type": "address"
           }
         ],
         "stateMutability": "nonpayable",
