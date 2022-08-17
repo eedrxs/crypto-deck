@@ -1,5 +1,5 @@
 import Web3 from "web3"
-import { polygonMumbai } from "../config/contract.json"
+import  polygonMumbai  from "../config/contract"
 import { writeDocToDb } from "./dbService"
 import { auth } from "../../firebase"
 import { serverTimestamp } from "@firebase/firestore"

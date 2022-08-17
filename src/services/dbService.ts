@@ -14,25 +14,6 @@ import { db } from "../../firebase"
 import { Token } from "../types/Token"
 import { UserDetails } from "../types/UserCredential"
 
-interface ReadDocsFromDb {
-  (collectionId: string): Promise<any>
-  (
-    collectionId: string,
-    documentId: string,
-    subCollectionId: string
-  ): Promise<any>
-}
-
-interface WriteDocToDb<Data> {
-  (collectionId: string, documentId: string, data: Data): Promise<void>
-  (
-    collectionId: string,
-    documentId: string,
-    subcollectionId: string,
-    data: Data
-  ): Promise<void>
-}
-
 const readDocsFromDb: ReadDocsFromDb = async (
   collectionId: string,
   documentId?: string,
@@ -81,5 +62,24 @@ const writeDocToDb: WriteDocToDb<any> = async (
 }
 
 const updateDB = () => {}
+
+interface ReadDocsFromDb {
+  (collectionId: string): Promise<any>
+  (
+    collectionId: string,
+    documentId: string,
+    subCollectionId: string
+  ): Promise<any>
+}
+
+interface WriteDocToDb<Data> {
+  (collectionId: string, documentId: string, data: Data): Promise<void>
+  (
+    collectionId: string,
+    documentId: string,
+    subcollectionId: string,
+    data: Data
+  ): Promise<void>
+}
 
 export { readDocsFromDb, writeDocToDb, updateDB }

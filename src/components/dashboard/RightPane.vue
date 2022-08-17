@@ -12,12 +12,16 @@
       <div class="p-1 hover:bg-[#0000002f] rounded-full transition">
         <ArrowLeftIcon class="h-5 x-md:hidden" @click="selectToken('')" />
       </div>
-      <p class="flex justify-end group text-sm">
+      <a
+        :href="explorer.url + selectedToken?.address"
+        target="_blank"
+        class="flex justify-end group text-sm"
+      >
         <span class="group-hover:cursor-pointer group-hover:underline"
-          >View on Etherscan</span
+          >View on {{ explorer.name }}</span
         >
         <ExternalLinkIcon class="h-5 ml-2 group-hover:cursor-pointer" />
-      </p>
+      </a>
     </div>
 
     <div
@@ -55,6 +59,7 @@ import { Token } from "../../types/Token.js"
 const props = defineProps<{
   selectedToken: Token | undefined
   selectToken: (address: string) => void
+  explorer: { url: string; name: string }
 }>()
 
 const details = computed(() => {

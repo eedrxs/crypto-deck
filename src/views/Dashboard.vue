@@ -36,6 +36,7 @@
       v-show="route.fullPath === '/user/tokens'"
       :selectedToken="selectedToken"
       :selectToken="selectToken"
+      :explorer="networks[tokenForm.selectedNetwork].explorer"
     />
   </main>
 </template>
@@ -46,10 +47,9 @@ import { useRoute } from "vue-router"
 import { readDocsFromDb } from "../services/dbService"
 import { getNetworkLibrary } from "../services/contractService"
 import { auth } from "../../firebase"
-import networks from "../config/networks.json"
+import networks from "../config/networks"
 import LeftPane from "../components/dashboard/LeftPane.vue"
 import RightPane from "../components/dashboard/RightPane.vue"
-// import { tokens } from "../temp"
 import { Token, TokenForm } from "../types/Token"
 
 const route = useRoute()
@@ -80,6 +80,7 @@ function selectToken(address: string) {
   selectedToken.value = tokens.value.find(
     (token: any) => token.address === address
   )
+  console.log(networks[selectedToken.value?.network].explorer)
 }
 
 async function connectWallet() {
@@ -95,11 +96,7 @@ async function createToken() {
 }
 
 onMounted(async () => {
-  tokens.value = await readDocsFromDb(
-    "users",
-    auth.currentUser?.uid as string,
-    "tokens"
-  )
+  tokens.value = await readDocsFromDb("users", auth.currentUser.uid, "tokens")
   console.log(tokens.value)
 })
 </script>
