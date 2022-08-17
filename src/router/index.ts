@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router"
 
 import HomePage from "../views/HomePage.vue"
-import Account from "../views/Account.vue"
 import Dashboard from "../views/Dashboard.vue"
+import RegisterPage from "../views/RegisterPage.vue"
+import LoginPage from "../views/LoginPage.vue"
 
-import RegisterPage from "../components/account/RegisterPage.vue"
-import LoginPage from "../components/account/LoginPage.vue"
 import TokensPage from "../components/dashboard/TokensPage.vue"
 import NewTokenPage from "../components/dashboard/NewTokenPage.vue"
 import ProfilePage from "../components/dashboard/ProfilePage.vue"
@@ -17,19 +16,14 @@ const routes = [
     component: HomePage,
   },
   {
-    path: "/account",
-    name: "Account",
-    component: Account,
-    children: [
-      {
-        path: "register",
-        component: RegisterPage,
-      },
-      {
-        path: "login",
-        component: LoginPage,
-      },
-    ],
+    path: "/register",
+    name: "RegisterPage",
+    component: RegisterPage,
+  },
+  {
+    path: "/login",
+    name: "LoginPage",
+    component: LoginPage,
   },
   {
     path: "/user",
