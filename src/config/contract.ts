@@ -1,4 +1,4 @@
-export default {
+const contracts = {
   verification:
     "https://mumbai.polygonscan.com/address/0xA785C0F8F3F0ff1CBf96F31f5844C8B5b1E945C0#code",
   oldAddress: "0x3b63E72Af34599437f07E523D7a46e7a7F62b13A",
@@ -127,3 +127,5 @@ export default {
     ],
   },
 }
+
+export default contracts

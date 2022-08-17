@@ -80,7 +80,6 @@ function selectToken(address: string) {
   selectedToken.value = tokens.value.find(
     (token: any) => token.address === address
   )
-  console.log(networks[selectedToken.value?.network].explorer)
 }
 
 async function connectWallet() {
@@ -96,7 +95,10 @@ async function createToken() {
 }
 
 onMounted(async () => {
-  tokens.value = await readDocsFromDb("users", auth.currentUser.uid, "tokens")
+  if (auth.currentUser !== null) {
+    tokens.value = await readDocsFromDb("users", auth.currentUser.uid, "tokens")
+  }
+
   console.log(tokens.value)
 })
 </script>

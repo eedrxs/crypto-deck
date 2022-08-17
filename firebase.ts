@@ -20,4 +20,3 @@ const db = getFirestore(app)
 
 export default app
 export { auth, db }
-console.log(auth.currentUser?.uid)

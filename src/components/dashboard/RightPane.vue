@@ -35,13 +35,13 @@
     </div>
 
     <div v-if="details" class="flex mt-10">
-      <div class="flex items-center mr-5">
+      <div v-if="selectedToken?.mintable" class="flex items-center mr-5">
         <div class="inline-block bg-crypto-blue rounded-full p-2">
           <img class="h-4" src="../../assets/images/money-bag.png" alt="" />
         </div>
         <span class="font-bold ml-2">Mintable</span>
       </div>
-      <div class="flex items-center">
+      <div v-if="selectedToken?.burnable" class="flex items-center">
         <div class="inline-block bg-crypto-blue rounded-full p-2">
           <img class="h-4" src="../../assets/images/fire.png" alt="" />
         </div>

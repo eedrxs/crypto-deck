@@ -1,5 +1,5 @@
 import Web3 from "web3"
-import  polygonMumbai  from "../config/contract"
+import contracts from "../config/contract"
 import { writeDocToDb } from "./dbService"
 import { auth } from "../../firebase"
 import { serverTimestamp } from "@firebase/firestore"
@@ -21,7 +21,7 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
     decimals,
     tokenType,
   } = tokenData
-  const { abi, address, gas, gasPrice } = polygonMumbai
+  const { abi, address, gas, gasPrice } = contracts.polygonMumbai
   const options = {
     from: signer.selectedAddress,
     gas,

@@ -6,6 +6,8 @@ export interface Token {
   initialSupply: number
   decimals: number
   address: string
+  mintable: boolean
+  burnable: boolean
 }
 
 export interface TokenForm {

@@ -1,4 +1,4 @@
-export default {
+const networks: Networks = {
   "Polygon Mumbai": {
     name: "Polygon Mumbai",
     tokenTypes: ["ERC20"],
@@ -15,4 +15,17 @@ export default {
       name: "Etherscan",
     },
   },
+}
+
+export default networks
+
+interface Networks {
+  [network: string]: {
+    name: string
+    tokenTypes: string[]
+    explorer: {
+      url: string
+      name: string
+    }
+  }
 }
