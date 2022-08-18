@@ -28,8 +28,8 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
     gasPrice,
   }
   const erc20Factory = new web3.eth.Contract(abi as any, address, options)
-  const filter = { creatorAddress: signer.selectedAddress }
-  erc20Factory.events.TokenCreated(filter, (error: any, event: any) =>
+  const eventFilter = { creatorAddress: signer.selectedAddress }
+  erc20Factory.events.TokenCreated(eventFilter, (error: any, event: any) =>
     addPolygonTokenToDb(tokenData, event, error)
   )
 
@@ -51,7 +51,7 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
   return newToken
 }
 
-function addPolygonTokenToDb(
+async function addPolygonTokenToDb(
   tokenData: any,
   tokenCreationEvent: any,
   error: any
@@ -68,18 +68,23 @@ function addPolygonTokenToDb(
   } = tokenData
   const { contractAddress } = tokenCreationEvent.returnValues
 
-  writeDocToDb("users", auth.currentUser?.uid as any as string, "tokens", {
-    name,
-    symbol,
-    network: "Polygon Mumbai",
-    type: tokenType,
-    initialSupply,
-    decimals: decimals || DEFAULT_DECIMALS,
-    address: contractAddress,
-    mintable,
-    burnable,
-    createdAt: serverTimestamp(),
-  })
+  await writeDocToDb(
+    "users",
+    auth.currentUser?.uid as any as string,
+    "tokens",
+    {
+      name,
+      symbol,
+      network: "Polygon Mumbai",
+      type: tokenType,
+      initialSupply,
+      decimals: decimals || DEFAULT_DECIMALS,
+      address: contractAddress,
+      mintable,
+      burnable,
+      createdAt: serverTimestamp(),
+    }
+  )
 }
 
 const getNetworkLibrary = (network: string) => {

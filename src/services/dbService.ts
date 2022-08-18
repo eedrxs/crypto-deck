@@ -9,10 +9,42 @@ import {
   Timestamp,
   orderBy,
   query,
+  onSnapshot,
 } from "@firebase/firestore"
 import { db } from "../../firebase"
 import { Token } from "../types/Token"
 import { UserDetails } from "../types/UserCredential"
+
+const listenToDb: ListenToDb = async (
+  listener: any,
+  collectionId: string,
+  documentId?: string,
+  subCollectionId?: string
+) => {
+  if (documentId && subCollectionId) {
+    const subcollectionRef = collection(
+      db,
+      collectionId,
+      documentId,
+      subCollectionId
+    )
+    const q = query(subcollectionRef, orderBy("createdAt", "desc"))
+    const unsubscriber = onSnapshot(q, (querySnapshot) => {
+      const result: any = []
+      querySnapshot.forEach((doc) => result.push(doc.data()))
+      listener.value = result
+    })
+    return unsubscriber
+  } else {
+    const collectionRef = collection(db, collectionId)
+    const unsubscriber = onSnapshot(collectionRef, (querySnapshot) => {
+      const result: any = []
+      querySnapshot.forEach((doc) => result.push(doc.data()))
+      listener.value = result
+    })
+    return unsubscriber
+  }
+}
 
 const readDocsFromDb: ReadDocsFromDb = async (
   collectionId: string,
@@ -26,7 +58,7 @@ const readDocsFromDb: ReadDocsFromDb = async (
       documentId,
       subCollectionId
     )
-    const q = query(subcollectionRef, orderBy("createdAt", "asc"))
+    const q = query(subcollectionRef, orderBy("createdAt", "desc"))
     const querySnapshot = await getDocs(q)
     let result: any = []
     querySnapshot.forEach((doc) => result.push(doc.data()))
@@ -61,7 +93,15 @@ const writeDocToDb: WriteDocToDb<any> = async (
   }
 }
 
-const updateDB = () => {}
+interface ListenToDb {
+  (listener: any, collectionId: string): Promise<any>
+  (
+    listener: any,
+    collectionId: string,
+    documentId: string,
+    subCollectionId: string
+  ): Promise<any>
+}
 
 interface ReadDocsFromDb {
   (collectionId: string): Promise<any>
@@ -82,4 +122,4 @@ interface WriteDocToDb<Data> {
   ): Promise<void>
 }
 
-export { readDocsFromDb, writeDocToDb, updateDB }
+export { readDocsFromDb, writeDocToDb, listenToDb }

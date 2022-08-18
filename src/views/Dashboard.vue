@@ -42,9 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue"
+import { ref, computed, onBeforeUnmount } from "vue"
 import { useRoute } from "vue-router"
-import { readDocsFromDb } from "../services/dbService"
+import { readDocsFromDb, listenToDb } from "../services/dbService"
 import toast from "../services/toastService"
 import { getNetworkLibrary } from "../services/contractService"
 import { onAuthStateChanged } from "@firebase/auth"
@@ -53,12 +53,14 @@ import networks from "../config/networks"
 import LeftPane from "../components/dashboard/LeftPane.vue"
 import RightPane from "../components/dashboard/RightPane.vue"
 import { Token, TokenForm } from "../types/Token"
+import router from "../router"
 
 const route = useRoute()
 const sidebarOpen = ref(false)
 const tokens = ref([])
 const selectedToken = ref<Token | undefined>(undefined)
-
+const signer = ref<any>(null)
+const unsubscribe = ref<any>(null)
 const tokenForm = ref<TokenForm>({
   selectedNetwork: "Polygon Mumbai",
   tokenType: "",
@@ -69,7 +71,14 @@ const tokenForm = ref<TokenForm>({
   mintable: false,
   burnable: false,
 })
-const signer = ref<any>(null)
+const toastOptions = {
+  type: "danger",
+  transition: "bounce",
+  timeout: 5000,
+  showIcon: "true",
+  hideProgressBar: "true",
+}
+
 const networkLibrary = computed(() => {
   return getNetworkLibrary(tokenForm.value.selectedNetwork)
 })
@@ -84,36 +93,51 @@ function selectToken(address: string) {
   )
 }
 
+function resetTokenForm() {
+  tokenForm.value.tokenType = ""
+  tokenForm.value.name = ""
+  tokenForm.value.symbol = ""
+  tokenForm.value.initialSupply = null
+  tokenForm.value.decimals = null
+  tokenForm.value.mintable = false
+  tokenForm.value.burnable = false
+}
+
 async function connectWallet() {
-  signer.value = await networkLibrary.value.getSigner()
+  try {
+    signer.value = await networkLibrary.value.getSigner()
+  } catch (error: any) {
+    toast(error.message, toastOptions)
+  }
 }
 
 async function createToken() {
-  const options = {
-    type: "success",
-    transition: "bounce",
-    timeout: 5000,
-    showIcon: "true",
-    hideProgressBar: "true",
-  }
-
   try {
-    const newToken = await networkLibrary.value.factoryContract(
-      signer.value,
-      tokenForm.value
-    )
+    await networkLibrary.value.factoryContract(signer.value, tokenForm.value)
   } catch (error: any) {
-    options.type = "danger"
-    toast(error.message, options)
+    toast(error.message, toastOptions)
     return
   }
 
-  toast("Token created!", options)
+  toastOptions.type = "success"
+  toast("Token created!", toastOptions)
+  resetTokenForm()
+  router.push("/user/tokens")
 }
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    tokens.value = await readDocsFromDb("users", user.uid as string, "tokens")
+    const unsub = await listenToDb(
+      tokens,
+      "users",
+      user.uid as string,
+      "tokens"
+    )
+    unsubscribe.value = unsub
   }
+})
+
+onBeforeUnmount(() => {
+  unsubscribe.value()
 })
 </script>
