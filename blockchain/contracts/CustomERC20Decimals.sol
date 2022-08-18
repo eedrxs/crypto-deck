@@ -17,7 +17,7 @@ contract CustomERC20Decimals is ERC20Burnable, Ownable {
         bool isBurnable_,
         uint8 decimals_
     ) ERC20(name_, symbol_) {
-        require(_decimals != 0, "Decimals cannot be zero");
+        require(_decimals > 0, "Decimals cannot be zero");
         _isMintable = isMintable_;
         _isBurnable = isBurnable_;
         _decimals = decimals_;

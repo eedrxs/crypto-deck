@@ -261,7 +261,7 @@
       ]
     },
     "C:\\Users\\eedris\\Documents\\projects\\building\\crypto-deck\\blockchain\\contracts\\ERC20Factory.sol": {
-      "lastModificationDate": 1660616522569,
+      "lastModificationDate": 1660647437563,
       "contentHash": "9e10c6f897b8ea11d589f4189fa3b288",
       "sourceName": "contracts/ERC20Factory.sol",
       "solcConfig": {
@@ -299,8 +299,8 @@
       ]
     },
     "C:\\Users\\eedris\\Documents\\projects\\building\\crypto-deck\\blockchain\\contracts\\CustomERC20Decimals.sol": {
-      "lastModificationDate": 1660294911698,
-      "contentHash": "9315c52b3acce68dfba4b50e2e30eb58",
+      "lastModificationDate": 1660844160301,
+      "contentHash": "7ae9686599325e4b172900cb28cfa0e9",
       "sourceName": "contracts/CustomERC20Decimals.sol",
       "solcConfig": {
         "version": "0.8.9",
