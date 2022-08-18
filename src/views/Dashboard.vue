@@ -45,6 +45,7 @@
 import { ref, computed } from "vue"
 import { useRoute } from "vue-router"
 import { readDocsFromDb } from "../services/dbService"
+import toast from "../services/toastService"
 import { getNetworkLibrary } from "../services/contractService"
 import { onAuthStateChanged } from "@firebase/auth"
 import { auth } from "../../firebase"
@@ -88,11 +89,26 @@ async function connectWallet() {
 }
 
 async function createToken() {
-  const newToken = await networkLibrary.value.factoryContract(
-    signer.value,
-    tokenForm.value
-  )
-  console.log(newToken)
+  const options = {
+    type: "success",
+    transition: "bounce",
+    timeout: 5000,
+    showIcon: "true",
+    hideProgressBar: "true",
+  }
+
+  try {
+    const newToken = await networkLibrary.value.factoryContract(
+      signer.value,
+      tokenForm.value
+    )
+  } catch (error: any) {
+    options.type = "danger"
+    toast(error.message, options)
+    return
+  }
+
+  toast("Token created!", options)
 }
 
 onAuthStateChanged(auth, async (user) => {
