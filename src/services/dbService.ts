@@ -4,6 +4,7 @@ import {
   addDoc,
   deleteDoc,
   setDoc,
+  getDoc,
   getDocs,
   updateDoc,
   Timestamp,
@@ -44,6 +45,12 @@ const listenToDb: ListenToDb = async (
     })
     return unsubscriber
   }
+}
+
+const readDocFromDb = async (collectionId: string, documentId: string) => {
+  const docRef = doc(db, collectionId, documentId)
+  const docSnap = await getDoc(docRef)
+  return docSnap.data()
 }
 
 const readDocsFromDb: ReadDocsFromDb = async (
@@ -122,4 +129,4 @@ interface WriteDocToDb<Data> {
   ): Promise<void>
 }
 
-export { readDocsFromDb, writeDocToDb, listenToDb }
+export { readDocFromDb, readDocsFromDb, writeDocToDb, listenToDb }

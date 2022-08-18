@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="bg-white px-3 pt-5 x-md:px-6 x-md:pt-10"
-    @click.stop="$emit('toggle-sidebar', false)"
-  >
+  <section class="bg-white px-3 pt-5 x-md:px-6 x-md:pt-10">
     <Header page="Profile" @toggle-sidebar="$emit('toggle-sidebar', true)" />
 
     <div class="flex flex-wrap py-4 gap-6">
@@ -21,7 +18,10 @@
 </template>
 
 <script setup lang="ts">
+import { auth } from "../../../firebase"
+import { readDocFromDb } from "../../services/dbService"
 import Header from "./Header.vue"
 
 const props = defineProps<{ sidebarOpen: boolean }>()
+const emits = defineEmits(["toggle-sidebar"])
 </script>

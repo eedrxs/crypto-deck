@@ -50,7 +50,10 @@
         class="h-6 text-white/60 hover:text-white transition"
         @click="popupOpen = !popupOpen"
       />
-      <ProfilePopUp v-show="popupOpen" />
+      <ProfilePopUp
+        v-show="popupOpen"
+        @toggle-sidebar="$emit('toggle-sidebar', false)"
+      />
     </div>
   </aside>
 </template>
