@@ -207,8 +207,8 @@ function createToken() {
     type: "danger",
     transition: "bounce",
     timeout: 3000,
-    showIcon: "true",
-    hideProgressBar: "true",
+    showIcon: true,
+    hideProgressBar: true,
   }
 
   if (!props.signer) {

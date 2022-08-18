@@ -44,7 +44,7 @@
 <script setup lang="ts">
 import { ref, computed, onBeforeUnmount } from "vue"
 import { useRoute } from "vue-router"
-import { readDocsFromDb, listenToDb } from "../services/dbService"
+import { listenToDb } from "../services/dbService"
 import toast from "../services/toastService"
 import { getNetworkLibrary } from "../services/contractService"
 import { onAuthStateChanged } from "@firebase/auth"
@@ -75,8 +75,8 @@ const toastOptions = {
   type: "danger",
   transition: "bounce",
   timeout: 5000,
-  showIcon: "true",
-  hideProgressBar: "true",
+  showIcon: true,
+  hideProgressBar: true,
 }
 
 const networkLibrary = computed(() => {
@@ -113,6 +113,8 @@ async function connectWallet() {
 
 async function createToken() {
   try {
+    console.log(tokenForm.value)
+
     await networkLibrary.value.factoryContract(signer.value, tokenForm.value)
   } catch (error: any) {
     toast(error.message, toastOptions)
@@ -121,8 +123,9 @@ async function createToken() {
 
   toastOptions.type = "success"
   toast("Token created!", toastOptions)
+  router.push("tokens")
   resetTokenForm()
-  router.push("/user/tokens")
+  console.log("Reset token form")
 }
 
 onAuthStateChanged(auth, async (user) => {

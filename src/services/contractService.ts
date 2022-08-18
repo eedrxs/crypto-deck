@@ -28,11 +28,6 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
     gasPrice,
   }
   const erc20Factory = new web3.eth.Contract(abi as any, address, options)
-  const eventFilter = { creatorAddress: signer.selectedAddress }
-  erc20Factory.events.TokenCreated(eventFilter, (error: any, event: any) =>
-    addPolygonTokenToDb(tokenData, event, error)
-  )
-
   const newToken = decimals
     ? await erc20Factory?.methods
         .createTokenDecimals(
@@ -47,6 +42,13 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
     : await erc20Factory?.methods
         .createToken(name, symbol, initialSupply, mintable, burnable)
         .send()
+
+  const eventFilter = { creatorAddress: signer.selectedAddress }
+  erc20Factory.events.TokenCreated(eventFilter, (error: any, event: any) => {
+    console.log(tokenData)
+
+    addPolygonTokenToDb(tokenData, event, error)
+  })
 
   return newToken
 }
@@ -67,7 +69,7 @@ async function addPolygonTokenToDb(
     tokenType,
   } = tokenData
   const { contractAddress } = tokenCreationEvent.returnValues
-
+  console.log(tokenData)
   await writeDocToDb(
     "users",
     auth.currentUser?.uid as any as string,
