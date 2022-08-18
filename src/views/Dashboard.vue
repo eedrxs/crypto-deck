@@ -42,10 +42,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue"
+import { ref, computed } from "vue"
 import { useRoute } from "vue-router"
 import { readDocsFromDb } from "../services/dbService"
 import { getNetworkLibrary } from "../services/contractService"
+import { onAuthStateChanged } from "@firebase/auth"
 import { auth } from "../../firebase"
 import networks from "../config/networks"
 import LeftPane from "../components/dashboard/LeftPane.vue"
@@ -94,11 +95,9 @@ async function createToken() {
   console.log(newToken)
 }
 
-onMounted(async () => {
-  if (auth.currentUser !== null) {
-    tokens.value = await readDocsFromDb("users", auth.currentUser.uid, "tokens")
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    tokens.value = await readDocsFromDb("users", user.uid as string, "tokens")
   }
-
-  console.log(tokens.value)
 })
 </script>

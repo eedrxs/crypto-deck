@@ -61,9 +61,7 @@
 
         <p class="text-center mt-6">
           Already have an account?
-          <span
-            class="text-crypto-blue cursor-pointer hover:underline"
-            @click=""
+          <span class="text-crypto-blue cursor-pointer hover:underline"
             ><router-link to="/login">Sign in</router-link></span
           >
         </p>

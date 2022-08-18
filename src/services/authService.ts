@@ -26,12 +26,12 @@ const createUserInDB = (userCredential: UserCredential, name?: string) => {
 }
 
 const signUp = async (name: string, email: string, password: string) => {
-  const userCredential: unknown = await createUserWithEmailAndPassword(
+  const userCredential = await createUserWithEmailAndPassword(
     auth,
     email,
     password
   )
-  createUserInDB(userCredential as UserCredential, name)
+  createUserInDB(userCredential as any as UserCredential, name)
 }
 
 const signInWithGoogle = async () => {
@@ -60,11 +60,10 @@ const signIn = (email: string, password: string) => {
   signInWithEmailAndPassword(auth, email, password)
 }
 
-const logOut = () => {
-  signOut(auth).then(() => {
-    localStorage.removeItem("token")
-    router.replace("/")
-  })
+const logOut = async () => {
+  await signOut(auth)
+  sessionStorage.removeItem("user-id")
+  router.push("/")
 }
 
 export { signUp, signInWithGoogle, signInWithGithub, signIn, logOut }
