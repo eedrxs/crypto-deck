@@ -8,13 +8,11 @@ import {
 } from "firebase/auth"
 import { auth } from "../../firebase"
 import { Timestamp } from "@firebase/firestore"
-import { useRouter } from "vue-router"
 import { writeDocToDb } from "./dbService"
 import { UserCredential } from "../types/UserCredential"
 
 const googleAuthProvider = new GoogleAuthProvider()
 const githubAuthProvider = new GithubAuthProvider()
-const router = useRouter()
 
 const createUserInDB = (userCredential: UserCredential, name?: string) => {
   return writeDocToDb("users", userCredential.user.uid, {
@@ -63,7 +61,7 @@ const signIn = (email: string, password: string) => {
 const logOut = async () => {
   await signOut(auth)
   sessionStorage.removeItem("user-id")
-  router.push("/")
+  window.location.assign("/")
 }
 
 export { signUp, signInWithGoogle, signInWithGithub, signIn, logOut }

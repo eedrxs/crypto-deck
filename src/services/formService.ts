@@ -3,39 +3,46 @@ const EMAIL_REGEX =
   /^[a-zA-Z\d]+([.]?[a-zA-Z\d]+)*@[a-zA-Z]+(-?[a-zA-Z\d]+)*\.[a-zA-Z]{2,3}$/
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
 
-const validateField = (field: Field, validatorType: string): string | null => {
+function validateField(field: Field, validatorType: string): string | null {
   const { label, value, required } = field
   const validate = getValidator(validatorType)
 
   if (required && !value) {
-    return getValidator("default")(label)
-  } else if (validatorType && validate != defaultValidator) {
-    return validate(value)
+    const validate = getValidator("default")
+    return validate(label) as any
+  } else if (!required && (value === 0 || value)) {
+    return validate(value as string)
+  } else if (required && validatorType && validate != defaultValidator) {
+    return validate(value as string)
   } else {
     return null
   }
 }
 
-const getValidator = (validator: string) => {
+function getValidator(validator: string) {
   switch (validator) {
     case "email":
       return emailValidator
     case "password":
       return passwordValidator
+    case "initialSupply":
+      return initialSupplyValidator
+    case "decimals":
+      return decimalsValidator
     default:
       return defaultValidator
   }
 }
 
-const defaultValidator = (label: string): string => {
+function defaultValidator(label: string): string {
   return `${label} is required!`
 }
 
-const emailValidator = (value: string): string | null => {
+function emailValidator(value: string): string | null {
   return !EMAIL_REGEX.test(value) ? "Enter a valid email" : null
 }
 
-const passwordValidator = (value: string): string | null => {
+function passwordValidator(value: string): string | null {
   if (PASSWORD_REGEX.test(value)) {
     return "Must include uppercase and lowercase"
   } else if (value.length < 8) {
@@ -47,10 +54,18 @@ const passwordValidator = (value: string): string | null => {
   }
 }
 
+function initialSupplyValidator(value: string): string | null {
+  return +value < 0 ? "Initial supply can't be lesser than zero" : null
+}
+
+function decimalsValidator(value: string): string | null {
+  return +value < 1 ? "Decimals has to be greater or equal to 1" : null
+}
+
 export { validateField }
 
 interface Field {
   label: string
-  value: string
+  value: string | number
   required?: boolean
 }

@@ -19,6 +19,7 @@
       <TokenSetupPanel
         :tokenForm="tokenForm"
         :tokenTypes="networks[tokenForm.selectedNetwork].tokenTypes"
+        :signer="signer"
         @create-token="$emit('create-token')"
       />
     </div>

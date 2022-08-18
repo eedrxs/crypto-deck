@@ -36,7 +36,7 @@
 
           <button
             type="submit"
-            :disabled="isValid"
+            :disabled="formIsValid"
             class="w-full bg-crypto-blue hover:bg-[hsl(216,84%,38%)] text-white font-medium rounded-md py-3 mt-8 transition"
           >
             Create Account
@@ -103,7 +103,7 @@ const formErrors = ref<{ [key: string]: string | null }>({
   password: "",
 })
 
-const isValid = computed(() => {
+const formIsValid = computed(() => {
   return Object.values(formErrors.value).some((field) => field !== null)
 })
 
