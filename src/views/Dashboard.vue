@@ -113,19 +113,16 @@ async function connectWallet() {
 
 async function createToken() {
   try {
-    console.log(tokenForm.value)
-
     await networkLibrary.value.factoryContract(signer.value, tokenForm.value)
   } catch (error: any) {
     toast(error.message, toastOptions)
     return
   }
 
+  await router.push("tokens")
   toastOptions.type = "success"
   toast("Token created!", toastOptions)
-  router.push("tokens")
   resetTokenForm()
-  console.log("Reset token form")
 }
 
 onAuthStateChanged(auth, async (user) => {

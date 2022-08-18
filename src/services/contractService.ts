@@ -28,36 +28,32 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
     gasPrice,
   }
   const erc20Factory = new web3.eth.Contract(abi as any, address, options)
-  const newToken = decimals
-    ? await erc20Factory?.methods
-        .createTokenDecimals(
-          name,
-          symbol,
-          initialSupply,
-          mintable,
-          burnable,
-          decimals
-        )
-        .send()
-    : await erc20Factory?.methods
-        .createToken(name, symbol, initialSupply, mintable, burnable)
-        .send()
+  const contractCall = decimals
+    ? erc20Factory?.methods.createTokenDecimals(
+        name,
+        symbol,
+        initialSupply,
+        mintable,
+        burnable,
+        decimals
+      )
+    : erc20Factory?.methods.createToken(
+        name,
+        symbol,
+        initialSupply,
+        mintable,
+        burnable
+      )
 
-  const eventFilter = { creatorAddress: signer.selectedAddress }
-  erc20Factory.events.TokenCreated(eventFilter, (error: any, event: any) => {
-    console.log(tokenData)
+  await contractCall
+    .send()
+    .on("receipt", (receipt: any) => addPolygonTokenToDb(tokenData, receipt))
+    .on("error", (error: any, receipt: any) => console.log(error, receipt))
 
-    addPolygonTokenToDb(tokenData, event, error)
-  })
-
-  return newToken
+  return contractCall
 }
 
-async function addPolygonTokenToDb(
-  tokenData: any,
-  tokenCreationEvent: any,
-  error: any
-) {
+async function addPolygonTokenToDb(tokenData: any, receipt: any) {
   const DEFAULT_DECIMALS = 18
   const {
     name,
@@ -68,8 +64,8 @@ async function addPolygonTokenToDb(
     decimals,
     tokenType,
   } = tokenData
-  const { contractAddress } = tokenCreationEvent.returnValues
-  console.log(tokenData)
+  const { contractAddress } = receipt.events.TokenCreated.returnValues
+
   await writeDocToDb(
     "users",
     auth.currentUser?.uid as any as string,
