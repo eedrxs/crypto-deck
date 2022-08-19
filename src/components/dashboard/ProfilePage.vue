@@ -4,11 +4,14 @@
 
     <div class="flex flex-wrap py-4 gap-6">
       <div class="flex gap-x-4 mt-4">
-        <div class="h-[14rem] w-[14rem] bg-[#D9D9D9] rounded-full"></div>
+        <div
+          class="min-h-[6rem] min-w-[6rem] h-[14rem] w-[14rem] bg-[#D9D9D9] rounded-full"
+        ></div>
         <div class="mt-10">
-          <h1 class="font-medium text-3xl">Idris Abdul-Lateef</h1>
+          <h1 class="font-medium text-3xl">{{ userDetails.name }}</h1>
           <p class="font-medium text-sm text-[#BABABA]">
-            created on 12 Aug 2022
+            created on
+            {{ new Date(userDetails.createdAt.seconds * 1000).toDateString() }}
           </p>
         </div>
         <div></div>
@@ -18,10 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import { auth } from "../../../firebase"
-import { readDocFromDb } from "../../services/dbService"
 import Header from "./Header.vue"
 
-const props = defineProps<{ sidebarOpen: boolean }>()
+const props = defineProps<{ sidebarOpen: boolean; userDetails: any }>()
 const emits = defineEmits(["toggle-sidebar"])
 </script>

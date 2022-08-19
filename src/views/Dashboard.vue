@@ -7,7 +7,11 @@
       'md:grid min-h-screen relative overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-scrollbar',
     ]"
   >
-    <LeftPane :sidebarOpen="sidebarOpen" @toggle-sidebar="toggleSidebar" />
+    <LeftPane
+      :sidebarOpen="sidebarOpen"
+      :name="userDetails?.name"
+      @toggle-sidebar="toggleSidebar"
+    />
     <!-- Fills the space of the left pane and overlays the page behind the left pane when activated -->
     <div
       :class="[
@@ -25,6 +29,7 @@
       :connect="connectWallet"
       :signer="signer"
       :networks="networks"
+      :userDetails="userDetails"
       @toggle-sidebar="toggleSidebar"
       @network-change=""
       @connect-wallet="connectWallet"
@@ -44,7 +49,7 @@
 <script setup lang="ts">
 import { ref, computed, onBeforeUnmount } from "vue"
 import { useRoute } from "vue-router"
-import { listenToDb } from "../services/dbService"
+import { readDocFromDb, listenToDb } from "../services/dbService"
 import toast from "../services/toastService"
 import { getNetworkLibrary } from "../services/contractService"
 import { onAuthStateChanged } from "@firebase/auth"
@@ -56,6 +61,7 @@ import { Token, TokenForm } from "../types/Token"
 import router from "../router"
 
 const route = useRoute()
+const userDetails = ref()
 const sidebarOpen = ref(false)
 const tokens = ref([])
 const selectedToken = ref<Token | undefined>(undefined)
@@ -127,13 +133,10 @@ async function createToken() {
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    const unsub = await listenToDb(
-      tokens,
-      "users",
-      user.uid as string,
-      "tokens"
-    )
+    const unsub = await listenToDb(tokens, "users", user.uid, "tokens")
+    const details = await readDocFromDb("users", user.uid)
     unsubscribe.value = unsub
+    userDetails.value = details
   }
 })
 

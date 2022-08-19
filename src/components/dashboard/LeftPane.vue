@@ -44,7 +44,7 @@
       <p
         class="text-white text-sm x-md:text-base font-medium tracking-wide ml-1 x-md:-ml-1"
       >
-        Idris Abd...
+        {{ name.substring(0, 9) }}...
       </p>
       <DotsVerticalIcon
         class="h-6 text-white/60 hover:text-white transition"
@@ -68,7 +68,7 @@ import {
 } from "@heroicons/vue/outline"
 import ProfilePopUp from "./ProfilePopUp.vue"
 
-const props = defineProps<{ sidebarOpen: boolean }>()
+const props = defineProps<{ sidebarOpen: boolean; name: string }>()
 const emits = defineEmits(["toggle-sidebar"])
 const router = useRouter()
 const route = useRoute()
