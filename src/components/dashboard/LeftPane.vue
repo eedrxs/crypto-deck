@@ -44,7 +44,7 @@
       <p
         class="text-white text-sm x-md:text-base font-medium tracking-wide ml-1 x-md:-ml-1"
       >
-        {{ name.substring(0, 9) }}...
+        {{ name?.substring(0, 9) }}...
       </p>
       <DotsVerticalIcon
         class="h-6 text-white/60 hover:text-white transition"
