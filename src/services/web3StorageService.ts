@@ -1,4 +1,4 @@
-import { Service, Web3Storage } from "web3-storage"
+import { Service, Web3Storage } from "web3.storage"
 import { updateDocInDb } from "../services/dbService"
 import { auth } from "../../firebase"
 
