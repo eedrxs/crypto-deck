@@ -35,11 +35,13 @@ async function storeFiles(files: any) {
 
 async function uploadImage() {
   const files = (await getFiles()) as FileList
-  const cid = await storeFiles(files)
-  const url = `https://${cid}.ipfs.dweb.link/${files[0].name}`
-  await updateDocInDb("users", auth.currentUser?.uid as any, {
-    profilePhoto: url,
-  })
+  if (files) {
+    const cid = await storeFiles(files)
+    const url = `https://${cid}.ipfs.dweb.link/${files[0].name}`
+    await updateDocInDb("users", auth.currentUser?.uid as any, {
+      profilePhoto: url,
+    })
+  }
 }
 
 export { uploadImage }

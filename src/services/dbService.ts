@@ -1,13 +1,10 @@
 import {
   doc,
   collection,
-  addDoc,
-  deleteDoc,
   setDoc,
   getDoc,
   getDocs,
   updateDoc,
-  Timestamp,
   orderBy,
   query,
   onSnapshot,

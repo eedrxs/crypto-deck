@@ -32,7 +32,7 @@
           >
             <div
               class="flex justify-between items-center bg-[#aaaaaa57] hover:bg-green-500 text-sm rounded-md cursor-pointer transition p-1"
-              @click="uploadImage"
+              @click="uploadProfilePhoto"
               @click.stop="togglePopup = false"
             >
               <UploadIcon class="h-4" /> <span>Upload photo</span>
@@ -40,6 +40,7 @@
 
             <div
               class="flex justify-between items-center bg-red-500 hover:bg-red-600 text-sm rounded-md cursor-pointer transition p-1"
+              @click="removeProfilePhoto"
               @click.stop="togglePopup = false"
             >
               <TrashIcon class="h-4" /><span>Delete photo</span>
@@ -54,13 +55,14 @@
 <script setup lang="ts">
 import { ref, computed } from "vue"
 import { uploadImage } from "../../services/web3StorageService"
+import { updateDocInDb } from "../../services/dbService"
+import toast from "../../services/toastService"
+import { auth } from "../../../firebase"
 import { CogIcon, UploadIcon, TrashIcon } from "@heroicons/vue/outline"
 import Header from "./Header.vue"
 
 const props = defineProps<{ sidebarOpen: boolean; userDetails: any }>()
 const emits = defineEmits(["toggle-sidebar"])
-
-console.log(props.userDetails)
 
 const togglePopup = ref(false)
 const defaultProfilePhoto = "url('/src/assets/images/hapebeast.jpg')"
@@ -69,4 +71,37 @@ const profilePhotoInDb = computed(() => {
     ? `url('${props.userDetails?.profilePhoto}')`
     : ""
 })
+
+const toastOptions = {
+  type: "success",
+  transition: "bounce",
+  timeout: 3000,
+  showIcon: true,
+  hideProgressBar: true,
+}
+
+async function uploadProfilePhoto() {
+  try {
+    await uploadImage()
+  } catch (error) {
+    toastOptions.type = "danger"
+    toast("Failed to upload image", toastOptions)
+    return
+  }
+
+  toast("Image uploaded successfully", toastOptions)
+}
+
+async function removeProfilePhoto() {
+  try {
+    await updateDocInDb("users", auth.currentUser?.uid as any as string, {
+      profilePhoto: "",
+    })
+  } catch (error) {
+    toastOptions.type = "danger"
+    toast("Encountered error removing image", toastOptions)
+  }
+
+  toast("Image removed successfully", toastOptions)
+}
 </script>
