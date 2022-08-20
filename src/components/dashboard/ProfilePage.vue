@@ -89,7 +89,6 @@ async function uploadProfilePhoto(event: any) {
 
   try {
     await uploadImage(event.target.files)
-    debugger
   } catch (error) {
     toastOptions.type = "danger"
     toast("Failed to upload image", toastOptions)
