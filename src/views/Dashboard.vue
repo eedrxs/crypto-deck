@@ -40,7 +40,7 @@
       v-show="route.fullPath === '/user/tokens'"
       :selectedToken="selectedToken"
       :selectToken="selectToken"
-      :explorer="networks[tokenForm.selectedNetwork].explorer"
+      :explorer="networks[selectedToken?.network as string]?.explorer || {}"
     />
   </main>
 </template>

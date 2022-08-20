@@ -3,6 +3,7 @@ import contracts from "../config/contract"
 import { writeDocToDb } from "./dbService"
 import { auth } from "../../firebase"
 import { serverTimestamp } from "@firebase/firestore"
+import { TokenForm } from "../types/Token"
 
 const web3 = new Web3(Web3.givenProvider)
 
@@ -11,7 +12,7 @@ const getEthereumSigner = async () => {
   return web3.eth.currentProvider
 }
 
-const createPolygonToken = async (signer: any, tokenData: any) => {
+const createToken = async (signer: any, tokenData: TokenForm) => {
   const {
     name,
     symbol,
@@ -19,9 +20,10 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
     mintable,
     burnable,
     decimals,
-    tokenType,
+    selectedNetwork,
   } = tokenData
-  const { abi, address, gas, gasPrice } = contracts.polygonMumbai
+  const { abi, address, gas, gasPrice } =
+    contracts[selectedNetwork as keyof typeof contracts]
   const options = {
     from: signer.selectedAddress,
     gas,
@@ -47,23 +49,28 @@ const createPolygonToken = async (signer: any, tokenData: any) => {
 
   await contractCall
     .send()
-    .on("receipt", (receipt: any) => addPolygonTokenToDb(tokenData, receipt))
-    .on("error", (error: any, receipt: any) => console.log(error, receipt))
+    .then((receipt: any) => addTokenToDb(tokenData, receipt))
+    .catch((error: any) => console.log(error))
+  //   .on("receipt", (receipt: any) => addTokenToDb(tokenData, receipt))
+  //   .on("error", (error: any, receipt: any) => console.log(error, receipt))
+  // console.log(contractCall)
 
   return contractCall
 }
 
-async function addPolygonTokenToDb(tokenData: any, receipt: any) {
+async function addTokenToDb(tokenData: TokenForm, receipt: any) {
   const DEFAULT_DECIMALS = 18
   const {
     name,
     symbol,
+    tokenType,
     initialSupply,
     mintable,
     burnable,
     decimals,
-    tokenType,
+    selectedNetwork,
   } = tokenData
+  console.log(receipt)
   const { contractAddress } = receipt.events.TokenCreated.returnValues
 
   await writeDocToDb(
@@ -73,7 +80,7 @@ async function addPolygonTokenToDb(tokenData: any, receipt: any) {
     {
       name,
       symbol,
-      network: "Polygon Mumbai",
+      network: selectedNetwork,
       type: tokenType,
       initialSupply,
       decimals: decimals || DEFAULT_DECIMALS,
@@ -90,13 +97,13 @@ const getNetworkLibrary = (network: string) => {
     case "Polygon Mumbai":
       return {
         getSigner: getEthereumSigner,
-        factoryContract: createPolygonToken,
+        factoryContract: createToken,
       }
 
     default:
       return {
         getSigner: getEthereumSigner,
-        factoryContract: createPolygonToken,
+        factoryContract: createToken,
       }
   }
 }

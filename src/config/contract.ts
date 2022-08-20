@@ -114,7 +114,7 @@ const ethereumAbi = [
 ]
 
 const contracts = {
-  polygonMumbai: {
+  "Polygon Mumbai": {
     gas: 4000000,
     gasPrice: "50000000000",
     address: "0x109460937d8faCd97583A15C5dFA3330839550A2",
@@ -122,7 +122,7 @@ const contracts = {
     verifiedContractUrl:
       "https://mumbai.polygonscan.com/address/0x109460937d8faCd97583A15C5dFA3330839550A2#code",
   },
-  goerli: {
+  Goerli: {
     gas: 4000000,
     gasPrice: "50000000000",
     address: "0xe18Da8c79076c55499673AfCc36bfA825ee046c8",

@@ -7,11 +7,11 @@ const networks: Networks = {
       name: "Polygonscan",
     },
   },
-  Ethereum: {
-    name: "Ethereum Goerli",
+  Goerli: {
+    name: "Goerli",
     tokenTypes: ["ERC20", "ERC777"],
     explorer: {
-      url: "https://goerli.etherscan.io/tokens",
+      url: "https://goerli.etherscan.io/token/",
       name: "Etherscan",
     },
   },

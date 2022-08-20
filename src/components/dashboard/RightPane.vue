@@ -13,12 +13,12 @@
         <ArrowLeftIcon class="h-5 x-md:hidden" @click="selectToken('')" />
       </div>
       <a
-        :href="explorer.url + selectedToken?.address"
+        :href="explorer?.url + selectedToken?.address"
         target="_blank"
         class="flex justify-end group text-sm"
       >
         <span class="group-hover:cursor-pointer group-hover:underline"
-          >View on {{ explorer.name }}</span
+          >View on {{ explorer?.name }}</span
         >
         <ExternalLinkIcon class="h-5 ml-2 group-hover:cursor-pointer" />
       </a>
