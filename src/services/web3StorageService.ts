@@ -10,22 +10,24 @@ function makeStorageClient() {
   return new Web3Storage({ token: getAccessToken() } as Service)
 }
 
-// function getFiles() {
-//   const fileInput = document.createElement("input")
-//   fileInput.type = "file"
-//   fileInput.accept = "image/png, image/jpeg"
+function getFiles() {
+  const fileInput = document.createElement("input")
+  fileInput.type = "file"
+  fileInput.accept = "image/png, image/jpeg"
+  fileInput.style.display = "none"
+  document.body.appendChild(fileInput)
 
-//   const filePromise = new Promise((resolve, reject) => {
-//     fileInput.onchange = (event: any) => {
-//       const selectedFile = event.target.files
-//       if (selectedFile) resolve(selectedFile)
-//       else reject(null)
-//     }
-//   })
+  const filePromise = new Promise((resolve, reject) => {
+    fileInput.onchange = (event: any) => {
+      const selectedFile = event.target.files
+      if (selectedFile) resolve(selectedFile)
+      else reject(null)
+    }
+  })
 
-//   fileInput.click()
-//   return filePromise
-// }
+  fileInput.click()
+  return filePromise
+}
 
 async function storeFiles(files: any) {
   const client = makeStorageClient()
@@ -33,16 +35,15 @@ async function storeFiles(files: any) {
   return cid
 }
 
-async function uploadImage(files: FileList) {
-  if (files) {
-    const cid = await storeFiles(files)
-    console.log(cid)
+async function uploadImage() {
+  const files = (await getFiles()) as FileList
 
+  if (files.length !== 0) {
+    const cid = await storeFiles(files)
     const url = `https://${cid}.ipfs.dweb.link/${files[0].name}`
     await updateDocInDb("users", auth.currentUser?.uid as any, {
       profilePhoto: url,
     })
-    console.log("Saved url to db")
   }
 }
 

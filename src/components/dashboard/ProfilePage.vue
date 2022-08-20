@@ -5,7 +5,6 @@
   >
     <Header page="Profile" @toggle-sidebar="$emit('toggle-sidebar', true)" />
 
-    <!-- <div class="flex py-4"> -->
     <div class="relative flex flex-col x-md:flex-row gap-4 mt-4 py-4">
       <div
         :style="{ backgroundImage: profilePhoto }"
@@ -32,15 +31,13 @@
           v-show="togglePopup"
           class="absolute flex flex-col gap-y-2 right-0 top-[110%] w-[9rem] bg-[#c9c9c9] rounded-lg p-1 text-white"
         >
-          <label
-            for="upload-photo"
+          <div
             class="flex justify-between items-center bg-[#aaaaaa57] hover:bg-green-500 text-sm rounded-md cursor-pointer transition p-1"
-            @change="uploadProfilePhoto"
+            @click="uploadProfilePhoto"
             @click.stop="togglePopup = false"
           >
-            <input type="file" id="upload-photo" class="hidden" />
             <UploadIcon class="h-4" /> <span>Upload photo</span>
-          </label>
+          </div>
 
           <div
             class="flex justify-between items-center bg-red-500 hover:bg-red-600 text-sm rounded-md cursor-pointer transition p-1"
@@ -52,7 +49,6 @@
         </div>
       </div>
     </div>
-    <!-- </div> -->
   </section>
 </template>
 
@@ -69,7 +65,6 @@ const props = defineProps<{ sidebarOpen: boolean; userDetails: any }>()
 const emits = defineEmits(["toggle-sidebar"])
 
 const togglePopup = ref(false)
-const defaultProfilePhoto = "url('/src/assets/images/profile.jpg')"
 const profilePhoto = computed(() => {
   return props.userDetails?.profilePhoto
     ? `url('${props.userDetails?.profilePhoto}')`
@@ -84,11 +79,9 @@ const toastOptions = {
   hideProgressBar: true,
 }
 
-async function uploadProfilePhoto(event: any) {
-  if (event.target.files.length === 0) return
-
+async function uploadProfilePhoto() {
   try {
-    await uploadImage(event.target.files)
+    await uploadImage()
   } catch (error) {
     toastOptions.type = "danger"
     toast("Failed to upload image", toastOptions)
