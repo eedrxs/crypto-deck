@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeUnmount } from "vue"
+import { ref, computed, onUpdated, onBeforeUnmount } from "vue"
 import { useRoute } from "vue-router"
 import { listenToDocInDb, listenToCollectionInDb } from "../services/dbService"
 import toast from "../services/toastService"
@@ -147,6 +147,14 @@ onAuthStateChanged(auth, async (user) => {
     tokensUnsubscribe.value = tokensUnsub
     userDetailsUnsub.value = userDetailsUnsub
   }
+})
+
+onUpdated(() => {
+  document.body.style.overflowY = sidebarOpen.value
+    ? // ||
+      // (document.documentElement.clientWidth < 950 && selectedToken.value)
+      "hidden"
+    : "auto"
 })
 
 onBeforeUnmount(() => {
