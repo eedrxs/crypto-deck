@@ -9,7 +9,7 @@
   >
     <LeftPane
       :sidebarOpen="sidebarOpen"
-      :name="userDetails?.name || ''"
+      :userDetails="userDetails"
       @toggle-sidebar="toggleSidebar"
     />
     <!-- Fills the space of the left pane and overlays the page behind the left pane when activated -->

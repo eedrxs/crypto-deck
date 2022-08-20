@@ -8,7 +8,7 @@
     <div class="flex flex-wrap py-4 gap-6">
       <div class="flex gap-x-4 mt-4 relative">
         <div
-          :style="{ backgroundImage: profilePhotoInDb || defaultProfilePhoto }"
+          :style="{ backgroundImage: profilePhoto }"
           class="bg-cover bg-center min-h-[6rem] min-w-[6rem] h-[14rem] w-[14rem] bg-[#D9D9D9] rounded-full"
         ></div>
 
@@ -65,11 +65,11 @@ const props = defineProps<{ sidebarOpen: boolean; userDetails: any }>()
 const emits = defineEmits(["toggle-sidebar"])
 
 const togglePopup = ref(false)
-const defaultProfilePhoto = "url('/src/assets/images/hapebeast.jpg')"
-const profilePhotoInDb = computed(() => {
+const defaultProfilePhoto = "url('/src/assets/images/profile.jpg')"
+const profilePhoto = computed(() => {
   return props.userDetails?.profilePhoto
     ? `url('${props.userDetails?.profilePhoto}')`
-    : ""
+    : "url('/src/assets/images/profile.jpg'"
 })
 
 const toastOptions = {

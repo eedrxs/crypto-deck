@@ -40,11 +40,14 @@
     <div
       class="relative flex items-center justify-around w-full bg-[#104EAD] rounded-[1.7rem] p-2 cursor-pointer"
     >
-      <div class="h-10 w-10 rounded-full bg-white/70 -ml-1"></div>
+      <div
+        :style="{ backgroundImage: user.profilePhoto }"
+        class="h-10 w-10 bg-cover bg-center rounded-full bg-white/70 -ml-1"
+      ></div>
       <p
         class="text-white text-sm x-md:text-base font-medium tracking-wide ml-1 x-md:-ml-1"
       >
-        {{ name?.substring(0, 9) }}...
+        {{ user.name?.substring(0, 9) }}...
       </p>
       <DotsVerticalIcon
         class="h-6 text-white/60 hover:text-white transition"
@@ -59,17 +62,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import { useRouter, useRoute } from "vue-router"
+import ProfilePopUp from "./ProfilePopUp.vue"
 import {
   PlusCircleIcon,
   CashIcon,
   DotsVerticalIcon,
 } from "@heroicons/vue/outline"
-import ProfilePopUp from "./ProfilePopUp.vue"
 
-const props = defineProps<{ sidebarOpen: boolean; name: string }>()
 const emits = defineEmits(["toggle-sidebar"])
+const props = defineProps<{
+  sidebarOpen: boolean
+  userDetails: any
+}>()
+
+const user = computed(() => {
+  return {
+    name: props.userDetails?.name,
+    profilePhoto: props.userDetails?.profilePhoto
+      ? `url('${props.userDetails?.profilePhoto}')`
+      : "url('/src/assets/images/profile.jpg'",
+  }
+})
+
 const router = useRouter()
 const route = useRoute()
 const popupOpen = ref(false)
