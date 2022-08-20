@@ -11,8 +11,8 @@
         :class="[
           token.address === selectedToken?.address
             ? 'outline outline-black'
-            : 'hover:outline outline-[#00000023]',
-          'flex flex-col aspect-square justify-between px-4 pb-7 pt-5 h-56 w-56 bg-[#F9D423] rounded-lg outline-2 cursor-pointer transition',
+            : 'hover:outline outline-[#00000079]',
+          'flex flex-col grow aspect-square justify-between px-4 pb-7 pt-5 h-56 w-56 bg-[#F9D423] rounded-lg outline-2 cursor-pointer transition',
         ]"
         @click="selectToken(token.address)"
       >

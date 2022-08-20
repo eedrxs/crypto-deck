@@ -1,27 +1,31 @@
 <template>
   <section
-    class="bg-white px-3 pt-5 x-md:px-6 x-md:pt-10"
+    class="bg-white px-3 pt-5 x-md:px-6 x-md:pt-10 min-h-screen"
     @click.stop="togglePopup = false"
   >
     <Header page="Profile" @toggle-sidebar="$emit('toggle-sidebar', true)" />
 
-    <div class="relative flex flex-col x-md:flex-row gap-4 mt-4 py-4">
+    <div class="relative flex flex-col x-sm:flex-row gap-4 mt-4 py-4">
       <div
         :style="{ backgroundImage: profilePhoto }"
-        class="bg-cover bg-center min-h-[8rem] min-w-[8rem] max-w-[14rem] bg-[#D9D9D9] rounded-full"
+        class="bg-cover bg-center h-[48vw] w-[48vw] max-h-[14rem] max-w-[14rem] bg-[#D9D9D9] rounded-full"
       ></div>
 
-      <div class="mt-10">
+      <div class="mt-4 x-sm:mt-10">
         <h1 class="font-medium text-3xl">{{ userDetails?.name }}</h1>
         <p class="font-medium text-sm text-[#BABABA]">
-          created on
-          {{ new Date(userDetails?.createdAt.seconds * 1000).toDateString() }}
+          {{
+            userDetails
+              ? "created on " +
+                new Date(userDetails?.createdAt.seconds * 1000).toDateString()
+              : ""
+          }}
         </p>
       </div>
 
       <div class="absolute flex flex-col gap-y-1 top-0 right-0">
         <div
-          class="bg-[#00000048] hover:bg-[#0000005b] py-1 px-4 rounded-lg cursor-pointer transition"
+          class="bg-[#00000050] hover:bg-[#00000065] py-1 px-4 rounded-lg cursor-pointer transition"
           @click.stop="togglePopup = !togglePopup"
         >
           <CogIcon class="h-5 text-white" />
@@ -29,10 +33,10 @@
 
         <div
           v-show="togglePopup"
-          class="absolute flex flex-col gap-y-2 right-0 top-[110%] w-[9rem] bg-[#c9c9c9] rounded-lg p-1 text-white"
+          class="absolute flex flex-col gap-y-2 right-0 top-[110%] w-[9rem] bg-[#e0e0e0] rounded-lg p-1 text-white"
         >
           <div
-            class="flex justify-between items-center bg-[#aaaaaa57] hover:bg-green-500 text-sm rounded-md cursor-pointer transition p-1"
+            class="flex justify-between items-center bg-[#aaaaaa57] hover:bg-green-400 text-sm rounded-md cursor-pointer transition p-1"
             @click="uploadProfilePhoto"
             @click.stop="togglePopup = false"
           >
