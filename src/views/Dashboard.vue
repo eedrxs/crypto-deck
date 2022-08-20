@@ -31,7 +31,6 @@
       :networks="networks"
       :userDetails="userDetails"
       @toggle-sidebar="toggleSidebar"
-      @network-change=""
       @connect-wallet="connectWallet"
       @create-token="createToken"
     />

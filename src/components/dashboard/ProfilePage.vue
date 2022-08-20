@@ -20,11 +20,13 @@
           </p>
         </div>
 
-        <div
-          class="absolute top-0 right-0 bg-[#00000048] py-1 px-4 rounded-lg cursor-pointer transition"
-          @click.stop="togglePopup = !togglePopup"
-        >
-          <CogIcon class="h-5 text-white" />
+        <div class="absolute flex flex-col gap-y-1 top-0 right-0">
+          <div
+            class="bg-[#00000048] hover:bg-[#0000005b] py-1 px-4 rounded-lg cursor-pointer transition"
+            @click.stop="togglePopup = !togglePopup"
+          >
+            <CogIcon class="h-5 text-white" />
+          </div>
 
           <div
             v-show="togglePopup"
