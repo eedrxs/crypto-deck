@@ -13,3 +13,5 @@ declare global {
     ethereum: MetaMaskInpageProvider
   }
 }
+
+declare module "web3.storage"
