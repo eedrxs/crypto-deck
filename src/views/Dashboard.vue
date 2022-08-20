@@ -9,7 +9,7 @@
   >
     <LeftPane
       :sidebarOpen="sidebarOpen"
-      :name="userDetails?.name"
+      :name="userDetails?.name || ''"
       @toggle-sidebar="toggleSidebar"
     />
     <!-- Fills the space of the left pane and overlays the page behind the left pane when activated -->
@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { ref, computed, onBeforeUnmount } from "vue"
 import { useRoute } from "vue-router"
-import { readDocFromDb, listenToDb } from "../services/dbService"
+import { listenToDocInDb, listenToCollectionInDb } from "../services/dbService"
 import toast from "../services/toastService"
 import { getNetworkLibrary } from "../services/contractService"
 import { onAuthStateChanged } from "@firebase/auth"
@@ -62,11 +62,12 @@ import router from "../router"
 
 const route = useRoute()
 const userDetails = ref()
-const sidebarOpen = ref(false)
 const tokens = ref([])
+const userDetailsUnsubscribe = ref<any>(null)
+const tokensUnsubscribe = ref<any>(null)
+const sidebarOpen = ref(false)
 const selectedToken = ref<Token | undefined>(undefined)
 const signer = ref<any>(null)
-const unsubscribe = ref<any>(null)
 const tokenForm = ref<TokenForm>({
   selectedNetwork: "Polygon Mumbai",
   tokenType: "",
@@ -133,14 +134,24 @@ async function createToken() {
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    const unsub = await listenToDb(tokens, "users", user.uid, "tokens")
-    const details = await readDocFromDb("users", user.uid)
-    unsubscribe.value = unsub
-    userDetails.value = details
+    const tokensUnsub = await listenToCollectionInDb(
+      tokens,
+      "users",
+      user.uid,
+      "tokens"
+    )
+    const userDetailsUnsub = await listenToDocInDb(
+      userDetails,
+      "users",
+      user.uid
+    )
+    tokensUnsubscribe.value = tokensUnsub
+    userDetailsUnsub.value = userDetailsUnsub
   }
 })
 
 onBeforeUnmount(() => {
-  unsubscribe.value()
+  tokensUnsubscribe.value()
+  userDetailsUnsubscribe.value()
 })
 </script>

@@ -14,9 +14,43 @@ import {
 } from "@firebase/firestore"
 import { db } from "../../firebase"
 import { Token } from "../types/Token"
+import {
+  ListenToCollectionInDb,
+  ListenToDocInDb,
+  ReadDocsFromDb,
+  WriteDocToDb,
+} from "../types/DbServices"
 import { UserDetails } from "../types/UserCredential"
 
-const listenToDb: ListenToDb = async (
+const listenToDocInDb: ListenToDocInDb = async (
+  listener: any,
+  collectionId: string,
+  documentId: string,
+  subCollectionId?: string,
+  subDocumentId?: string
+) => {
+  if (subCollectionId && subDocumentId) {
+    const subCollectionRef = collection(
+      db,
+      collectionId,
+      documentId,
+      subCollectionId
+    )
+    const subDocRef = doc(subCollectionRef, subDocumentId)
+    const unsubscriber = onSnapshot(subDocRef, (doc) => {
+      listener.value = doc.data()
+    })
+    return unsubscriber
+  }
+
+  const docRef = doc(db, collectionId, documentId)
+  const unsubscriber = onSnapshot(docRef, (doc) => {
+    listener.value = doc.data()
+  })
+  return unsubscriber
+}
+
+const listenToCollectionInDb: ListenToCollectionInDb = async (
   listener: any,
   collectionId: string,
   documentId?: string,
@@ -100,33 +134,20 @@ const writeDocToDb: WriteDocToDb<any> = async (
   }
 }
 
-interface ListenToDb {
-  (listener: any, collectionId: string): Promise<any>
-  (
-    listener: any,
-    collectionId: string,
-    documentId: string,
-    subCollectionId: string
-  ): Promise<any>
+const updateDocInDb = async (
+  collectionId: string,
+  documentId: string,
+  data: object
+) => {
+  const docRef = doc(db, collectionId, documentId)
+  await updateDoc(docRef, data)
 }
 
-interface ReadDocsFromDb {
-  (collectionId: string): Promise<any>
-  (
-    collectionId: string,
-    documentId: string,
-    subCollectionId: string
-  ): Promise<any>
+export {
+  readDocFromDb,
+  readDocsFromDb,
+  writeDocToDb,
+  listenToDocInDb,
+  listenToCollectionInDb,
+  updateDocInDb,
 }
-
-interface WriteDocToDb<Data> {
-  (collectionId: string, documentId: string, data: Data): Promise<void>
-  (
-    collectionId: string,
-    documentId: string,
-    subcollectionId: string,
-    data: Data
-  ): Promise<void>
-}
-
-export { readDocFromDb, readDocsFromDb, writeDocToDb, listenToDb }
