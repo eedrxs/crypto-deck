@@ -34,6 +34,7 @@ async function storeFiles(files: any) {
 }
 
 async function uploadImage(files: FileList) {
+  console.log(files)
   if (files) {
     const cid = await storeFiles(files)
     const url = `https://${cid}.ipfs.dweb.link/${files[0].name}`

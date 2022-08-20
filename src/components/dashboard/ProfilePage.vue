@@ -5,54 +5,54 @@
   >
     <Header page="Profile" @toggle-sidebar="$emit('toggle-sidebar', true)" />
 
-    <div class="flex flex-wrap py-4 gap-6">
-      <div class="flex gap-x-4 mt-4 relative">
-        <div
-          :style="{ backgroundImage: profilePhoto }"
-          class="bg-cover bg-center min-h-[6rem] min-w-[6rem] h-[14rem] w-[14rem] bg-[#D9D9D9] rounded-full"
-        ></div>
+    <!-- <div class="flex py-4"> -->
+    <div class="relative flex flex-col x-md:flex-row gap-4 mt-4 py-4">
+      <div
+        :style="{ backgroundImage: profilePhoto }"
+        class="bg-cover bg-center min-h-[8rem] min-w-[8rem] max-w-[14rem] bg-[#D9D9D9] rounded-full"
+      ></div>
 
-        <div class="mt-10">
-          <h1 class="font-medium text-3xl">{{ userDetails?.name }}</h1>
-          <p class="font-medium text-sm text-[#BABABA]">
-            created on
-            {{ new Date(userDetails?.createdAt.seconds * 1000).toDateString() }}
-          </p>
+      <div class="mt-10">
+        <h1 class="font-medium text-3xl">{{ userDetails?.name }}</h1>
+        <p class="font-medium text-sm text-[#BABABA]">
+          created on
+          {{ new Date(userDetails?.createdAt.seconds * 1000).toDateString() }}
+        </p>
+      </div>
+
+      <div class="absolute flex flex-col gap-y-1 top-0 right-0">
+        <div
+          class="bg-[#00000048] hover:bg-[#0000005b] py-1 px-4 rounded-lg cursor-pointer transition"
+          @click.stop="togglePopup = !togglePopup"
+        >
+          <CogIcon class="h-5 text-white" />
         </div>
 
-        <div class="absolute flex flex-col gap-y-1 top-0 right-0">
-          <div
-            class="bg-[#00000048] hover:bg-[#0000005b] py-1 px-4 rounded-lg cursor-pointer transition"
-            @click.stop="togglePopup = !togglePopup"
+        <div
+          v-show="togglePopup"
+          class="absolute flex flex-col gap-y-2 right-0 top-[110%] w-[9rem] bg-[#c9c9c9] rounded-lg p-1 text-white"
+        >
+          <label
+            for="upload-photo"
+            class="flex justify-between items-center bg-[#aaaaaa57] hover:bg-green-500 text-sm rounded-md cursor-pointer transition p-1"
+            @change="uploadProfilePhoto"
+            @click.stop="togglePopup = false"
           >
-            <CogIcon class="h-5 text-white" />
-          </div>
+            <input type="file" id="upload-photo" class="hidden" />
+            <UploadIcon class="h-4" /> <span>Upload photo</span>
+          </label>
 
           <div
-            v-show="togglePopup"
-            class="absolute flex flex-col gap-y-2 right-0 top-[110%] w-[9rem] bg-[#c9c9c9] rounded-lg p-1 text-white"
+            class="flex justify-between items-center bg-red-500 hover:bg-red-600 text-sm rounded-md cursor-pointer transition p-1"
+            @click="removeProfilePhoto"
+            @click.stop="togglePopup = false"
           >
-            <label
-              for="upload-photo"
-              class="flex justify-between items-center bg-[#aaaaaa57] hover:bg-green-500 text-sm rounded-md cursor-pointer transition p-1"
-              @change="uploadProfilePhoto"
-              @click.stop="togglePopup = false"
-            >
-              <input type="file" id="upload-photo" class="hidden" />
-              <UploadIcon class="h-4" /> <span>Upload photo</span>
-            </label>
-
-            <div
-              class="flex justify-between items-center bg-red-500 hover:bg-red-600 text-sm rounded-md cursor-pointer transition p-1"
-              @click="removeProfilePhoto"
-              @click.stop="togglePopup = false"
-            >
-              <TrashIcon class="h-4" /><span>Delete photo</span>
-            </div>
+            <TrashIcon class="h-4" /><span>Delete photo</span>
           </div>
         </div>
       </div>
     </div>
+    <!-- </div> -->
   </section>
 </template>
 
@@ -85,10 +85,11 @@ const toastOptions = {
 }
 
 async function uploadProfilePhoto(event: any) {
-  if (!event.target.files) return
+  if (event.target.files.length === 0) return
 
   try {
     await uploadImage(event.target.files)
+    debugger
   } catch (error) {
     toastOptions.type = "danger"
     toast("Failed to upload image", toastOptions)
