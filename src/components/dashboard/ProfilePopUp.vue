@@ -6,10 +6,15 @@
       class="profile-popup-item"
       @click="router.push('profile')"
       @click.left="$emit('toggle-sidebar', false)"
+      @click.stop="$emit('toggle-popup')"
     >
       Profile <UserCircleIcon class="h-5" />
     </div>
-    <div class="profile-popup-item" @click="logOut">
+    <div
+      class="profile-popup-item"
+      @click="logOut"
+      @click.stop="$emit('toggle-popup')"
+    >
       Logout <LogoutIcon class="h-5" />
     </div>
   </div>

@@ -51,9 +51,6 @@ const createToken = async (signer: any, tokenData: TokenForm) => {
     .send()
     .then((receipt: any) => addTokenToDb(tokenData, receipt))
     .catch((error: any) => console.log(error))
-  //   .on("receipt", (receipt: any) => addTokenToDb(tokenData, receipt))
-  //   .on("error", (error: any, receipt: any) => console.log(error, receipt))
-  // console.log(contractCall)
 
   return contractCall
 }

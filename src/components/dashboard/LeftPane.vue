@@ -56,6 +56,7 @@
       <ProfilePopUp
         v-show="popupOpen"
         @toggle-sidebar="$emit('toggle-sidebar', false)"
+        @toggle-popup="popupOpen = false"
       />
     </div>
   </aside>

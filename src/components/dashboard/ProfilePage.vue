@@ -32,13 +32,15 @@
             v-show="togglePopup"
             class="absolute flex flex-col gap-y-2 right-0 top-[110%] w-[9rem] bg-[#c9c9c9] rounded-lg p-1 text-white"
           >
-            <div
+            <label
+              for="upload-photo"
               class="flex justify-between items-center bg-[#aaaaaa57] hover:bg-green-500 text-sm rounded-md cursor-pointer transition p-1"
-              @click="uploadProfilePhoto"
+              @change="uploadProfilePhoto"
               @click.stop="togglePopup = false"
             >
+              <input type="file" id="upload-photo" class="hidden" />
               <UploadIcon class="h-4" /> <span>Upload photo</span>
-            </div>
+            </label>
 
             <div
               class="flex justify-between items-center bg-red-500 hover:bg-red-600 text-sm rounded-md cursor-pointer transition p-1"
@@ -82,9 +84,11 @@ const toastOptions = {
   hideProgressBar: true,
 }
 
-async function uploadProfilePhoto() {
+async function uploadProfilePhoto(event: any) {
+  if (!event.target.files) return
+
   try {
-    await uploadImage()
+    await uploadImage(event.target.files)
   } catch (error) {
     toastOptions.type = "danger"
     toast("Failed to upload image", toastOptions)
