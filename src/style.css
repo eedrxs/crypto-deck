@@ -6,8 +6,8 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply !font-proxima scrollbar-thin scrollbar-track-transparent scrollbar-thumb-scrollbar;
+  html {
+    @apply font-proxima scrollbar-thin scrollbar-track-transparent scrollbar-thumb-scrollbar;
   }
 }
 
