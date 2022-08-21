@@ -42,9 +42,6 @@ const props = defineProps<{
 }>()
 const emits = defineEmits(["toggle-sidebar"])
 
-// console.log(props.networks)
-// console.log(props.tokens)
-
 for (let token of props.tokens) {
   console.log(props.networks[token.network].color)
 }

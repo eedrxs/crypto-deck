@@ -1,7 +1,8 @@
 import Web3 from "web3"
 import contracts from "../config/contract"
-import { writeDocToDb } from "./dbService"
+import networks from "../config/networks"
 import { auth } from "../../firebase"
+import { writeDocToDb } from "./dbService"
 import { serverTimestamp } from "@firebase/firestore"
 import { TokenForm } from "../types/Token"
 
@@ -29,6 +30,14 @@ const createToken = async (signer: any, tokenData: TokenForm) => {
     gas,
     gasPrice,
   }
+
+  const currentNetwork = Object.values(networks).find(
+    (network) => network.chainId === window.ethereum.chainId
+  )
+  if (selectedNetwork !== currentNetwork?.name) {
+    throw new Error("Network mismatch")
+  }
+
   const erc20Factory = new web3.eth.Contract(abi as any, address, options)
   const contractCall = decimals
     ? erc20Factory?.methods.createTokenDecimals(

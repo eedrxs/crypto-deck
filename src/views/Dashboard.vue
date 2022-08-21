@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onUpdated, onBeforeUnmount } from "vue"
+import { ref, computed, onMounted, onUpdated, onBeforeUnmount } from "vue"
 import { useRoute } from "vue-router"
 import { listenToDocInDb, listenToCollectionInDb } from "../services/dbService"
 import toast from "../services/toastService"
@@ -119,6 +119,11 @@ async function connectWallet() {
 
 async function createToken() {
   try {
+    const supportedNetwork = Object.values(networks).find(
+      (network) => network.chainId === window.ethereum.chainId
+    )
+
+    if (!supportedNetwork) throw new Error("Network not supported")
     await networkLibrary.value.factoryContract(signer.value, tokenForm.value)
   } catch (error: any) {
     toast(error.message, toastOptions)
@@ -126,8 +131,7 @@ async function createToken() {
   }
 
   await router.push("tokens")
-  toastOptions.type = "success"
-  toast("Token created!", toastOptions)
+  toast("Token created!", { ...toastOptions, type: "success" })
   resetTokenForm()
 }
 
@@ -147,6 +151,35 @@ onAuthStateChanged(auth, async (user) => {
     tokensUnsubscribe.value = tokensUnsub
     userDetailsUnsub.value = userDetailsUnsub
   }
+})
+
+onMounted(() => {
+  const currentNetwork = Object.values(networks).find(
+    (network) => network.chainId === window.ethereum.chainId
+  )
+  tokenForm.value.selectedNetwork =
+    (currentNetwork?.name as string) || "Polygon Mumbai"
+
+  window.ethereum.on("chainChanged", (networkId) => {
+    const newNetwork = Object.values(networks).find(
+      (network) => network.chainId === networkId
+    )
+
+    if (!newNetwork) {
+      return toast("Selected network not supported", {
+        ...toastOptions,
+        type: "danger",
+        position: "bottom-right",
+      })
+    }
+
+    tokenForm.value.selectedNetwork = newNetwork?.name as string
+    toast(`Network changed to '${newNetwork?.name}'`, {
+      ...toastOptions,
+      type: "info",
+      position: "bottom-right",
+    })
+  })
 })
 
 onUpdated(() => {

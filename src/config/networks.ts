@@ -6,6 +6,7 @@ const networks: Networks = {
       url: "https://mumbai.polygonscan.com/token/",
       name: "Polygonscan",
     },
+    chainId: "0x13881",
     color: "#8247E5",
   },
   Goerli: {
@@ -15,6 +16,7 @@ const networks: Networks = {
       url: "https://goerli.etherscan.io/token/",
       name: "Etherscan",
     },
+    chainId: "0x5",
     color: "#9797D7",
   },
 }
@@ -29,6 +31,7 @@ interface Networks {
       url: string
       name: string
     }
+    chainId: string
     color: string
   }
 }
