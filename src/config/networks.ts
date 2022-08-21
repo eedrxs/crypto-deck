@@ -11,7 +11,7 @@ const networks: Networks = {
   },
   Goerli: {
     name: "Goerli",
-    tokenTypes: ["ERC20", "ERC777"],
+    tokenTypes: ["ERC20"],
     explorer: {
       url: "https://goerli.etherscan.io/token/",
       name: "Etherscan",

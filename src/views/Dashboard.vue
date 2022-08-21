@@ -128,6 +128,7 @@ async function createToken() {
     if (!supportedNetwork) throw new Error("Network not supported")
     await networkLibrary.value.factoryContract(signer.value, tokenForm.value)
   } catch (error: any) {
+    creatingToken.value = false
     toast(error.message, toastOptions)
     return
   }
