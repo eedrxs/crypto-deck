@@ -30,6 +30,7 @@
       :signer="signer"
       :networks="networks"
       :userDetails="userDetails"
+      :creatingToken="creatingToken"
       @toggle-sidebar="toggleSidebar"
       @connect-wallet="connectWallet"
       @create-token="createToken"
@@ -67,6 +68,7 @@ const tokensUnsubscribe = ref<any>(null)
 const sidebarOpen = ref(false)
 const selectedToken = ref<Token | undefined>(undefined)
 const signer = ref<any>(null)
+const creatingToken = ref(false)
 const tokenForm = ref<TokenForm>({
   selectedNetwork: "Polygon Mumbai",
   tokenType: "",
@@ -119,10 +121,10 @@ async function connectWallet() {
 
 async function createToken() {
   try {
+    creatingToken.value = true
     const supportedNetwork = Object.values(networks).find(
       (network) => network.chainId === window.ethereum.chainId
     )
-
     if (!supportedNetwork) throw new Error("Network not supported")
     await networkLibrary.value.factoryContract(signer.value, tokenForm.value)
   } catch (error: any) {
@@ -131,6 +133,7 @@ async function createToken() {
   }
 
   await router.push("tokens")
+  creatingToken.value = false
   toast("Token created!", { ...toastOptions, type: "success" })
   resetTokenForm()
 }

@@ -126,9 +126,12 @@
 
     <button
       @click.prevent="createToken"
-      class="w-full bg-crypto-blue hover:bg-[hsl(216,84%,38%)] text-white font-medium rounded-md py-3 transition"
+      :class="[
+        { italic: creatingToken },
+        'w-full bg-crypto-blue hover:bg-[hsl(216,84%,38%)] text-white font-medium rounded-md py-3 transition',
+      ]"
     >
-      Create Token
+      {{ creatingToken ? "Creating Token" : "Create Token" }}
     </button>
   </form>
 </template>
@@ -143,6 +146,7 @@ const props = defineProps<{
   tokenForm: TokenForm
   tokenTypes: Networks[string]["tokenTypes"]
   signer: any
+  creatingToken: boolean
 }>()
 
 const emits = defineEmits(["create-token"])

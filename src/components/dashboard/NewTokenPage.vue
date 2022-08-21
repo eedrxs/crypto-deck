@@ -20,6 +20,7 @@
         :tokenForm="tokenForm"
         :tokenTypes="networks[tokenForm.selectedNetwork]?.tokenTypes"
         :signer="signer"
+        :creatingToken="creatingToken"
         @create-token="$emit('create-token')"
       />
     </div>
@@ -37,6 +38,7 @@ const props = defineProps<{
   tokenForm: TokenForm
   networks: Networks
   signer: any
+  creatingToken: boolean
 }>()
 
 const emits = defineEmits([
