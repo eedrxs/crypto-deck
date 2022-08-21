@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50">
+  <div class="bg-gray-50 mb-24">
     <div
       class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between"
     >
@@ -7,24 +7,24 @@
         class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl"
       >
         <span class="block">Ready to dive in?</span>
-        <span class="block text-indigo-600">Start your free trial today.</span>
+        <span class="block text-crypto-blue">Start buidling today.</span>
       </h2>
       <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
         <div class="inline-flex rounded-md shadow">
-          <a
-            href="#"
-            class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+          <router-link
+            to="/register"
+            class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-crypto-blue hover:bg-[hsl(216,84%,38%)]"
           >
             Get started
-          </a>
+          </router-link>
         </div>
         <div class="ml-3 inline-flex rounded-md shadow">
-          <a
-            href="#"
-            class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50"
+          <router-link
+            to="/login"
+            class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-crypto-blue bg-white hover:bg-indigo-50"
           >
             Log in
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
