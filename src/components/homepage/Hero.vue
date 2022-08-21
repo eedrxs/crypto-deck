@@ -13,7 +13,7 @@
       </h1>
       <div class="flex gap-x-2 lg:gap-x-4 mt-2">
         <div class="token-badge">ERC20</div>
-        <div class="token-badge">ERC1155 (Coming soon)</div>
+        <div class="token-badge">ERC1155 (WIP)</div>
       </div>
     </div>
     <div class="flex justify-end">

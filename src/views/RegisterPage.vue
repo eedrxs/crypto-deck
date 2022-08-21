@@ -13,7 +13,7 @@
 
         <form
           @submit.prevent="createAccount"
-          class="flex flex-col px-4 lg:px-5 pt-5 pb-6 w-full lg:w-[28rem] bg-[#d9d9d948] shadow-sm rounded-xl"
+          class="flex flex-col px-4 lg:px-5 pt-5 pb-6 min-w-full w-[24rem] lg:w-[28rem] bg-[#d9d9d948] shadow-sm rounded-xl"
         >
           <div v-for="(field, key, i) in form" :key="i" class="mb-5">
             <label :for="key" class="token-setup-input-label">{{
