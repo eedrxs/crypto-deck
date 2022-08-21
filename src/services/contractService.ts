@@ -67,7 +67,7 @@ async function addTokenToDb(tokenData: TokenForm, receipt: any) {
     decimals,
     selectedNetwork,
   } = tokenData
-  console.log(receipt)
+
   const { contractAddress } = receipt.events.TokenCreated.returnValues
 
   await writeDocToDb(

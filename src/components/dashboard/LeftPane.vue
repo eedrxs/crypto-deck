@@ -4,6 +4,7 @@
       sidebarOpen ? 'left-0' : '-left-[100%]',
       'fixed min-h-full z-20 x-md:!left-0 flex flex-col items-center justify-between bg-crypto-blue p-6 w-[15rem] transition-all',
     ]"
+    @click.stop="popupOpen = false"
   >
     <div class="w-full">
       <h1
@@ -47,11 +48,11 @@
       <p
         class="text-white text-sm x-md:text-base font-medium tracking-wide ml-1 x-md:-ml-1"
       >
-        {{ user.name?.substring(0, 9) }}...
+        {{ user.name?.substring(0, 10) }}...
       </p>
       <DotsVerticalIcon
         class="h-6 text-white/60 hover:text-white transition"
-        @click="popupOpen = !popupOpen"
+        @click.stop="popupOpen = !popupOpen"
       />
       <ProfilePopUp
         v-show="popupOpen"

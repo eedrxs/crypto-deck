@@ -25,6 +25,11 @@ export interface Networks {
   [network: string]: {
     name: string
     tokenTypes: string[]
+    explorer: {
+      url: string
+      name: string
+    }
+    color: string
   }
 }
 

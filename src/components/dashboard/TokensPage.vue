@@ -12,7 +12,9 @@
           token.address === selectedToken?.address
             ? 'outline outline-black'
             : 'hover:outline outline-[#00000079]',
-          'flex flex-col grow aspect-square justify-between px-4 pb-7 pt-5 h-56 w-56 bg-[#F9D423] rounded-lg outline-2 cursor-pointer transition',
+          `flex flex-col grow aspect-square justify-between px-4 pb-7 pt-5 h-56 w-56 bg-[${
+            networks[token.network].color
+          }] rounded-lg outline-2 cursor-pointer transition`,
         ]"
         @click="selectToken(token.address)"
       >
@@ -29,13 +31,21 @@
 
 <script setup lang="ts">
 import Header from "./Header.vue"
-import { Token } from "../../types/Token.js"
+import { Networks, Token } from "../../types/Token.js"
 
 const props = defineProps<{
   tokens: Token[]
+  networks: Networks
   sidebarOpen: boolean
   selectedToken: Token
   selectToken: (address: string) => void
 }>()
 const emits = defineEmits(["toggle-sidebar"])
+
+// console.log(props.networks)
+// console.log(props.tokens)
+
+for (let token of props.tokens) {
+  console.log(props.networks[token.network].color)
+}
 </script>
