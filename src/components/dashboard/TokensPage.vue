@@ -10,7 +10,7 @@
         :key="i"
         :class="[
           token.address === selectedToken?.address
-            ? 'outline outline-black'
+            ? 'outline outline-2 outline-black'
             : 'hover:outline outline-[#00000079]',
           'flex flex-col grow aspect-square justify-between px-4 pb-7 pt-5 h-56 w-56 rounded-lg outline-2 cursor-pointer transition',
         ]"
