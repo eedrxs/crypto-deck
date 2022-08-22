@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50 mb-24">
+  <div id="call-to-action" class="bg-gray-50 mb-24">
     <div
       class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between"
     >
@@ -30,3 +30,10 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+#call-to-action {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+</style>
