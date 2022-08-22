@@ -12,7 +12,7 @@
         <h1 class="font-firs font-bold text-4xl mb-4">Sign In</h1>
         <form
           @submit.prevent="login"
-          class="flex flex-col px-5 pt-5 pb-6 min-w-full w-[24rem] lg:w-[28rem] bg-[#d9d9d948] shadow-sm rounded-xl"
+          class="flex flex-col px-5 pt-5 pb-6 w-full x-sm:w-[24rem] x-lg:w-[28rem] bg-[#d9d9d948] shadow-sm rounded-xl"
         >
           <div v-for="(field, key, i) in form" :key="i" class="relative mb-5">
             <label :for="key" class="token-setup-input-label">{{

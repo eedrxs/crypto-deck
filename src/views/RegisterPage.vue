@@ -1,19 +1,19 @@
 <template>
-  <main class="grid grid-cols-1 lg:grid-cols-[28rem_1fr] min-h-screen">
+  <main class="grid grid-cols-1 lg:grid-cols-[30rem_1fr] min-h-screen">
     <div class="hidden lg:flex flex-col items-center justify-center">
       <img
-        class="h-[18rem] ml-14"
+        class="h-[18rem] ml-[12rem]"
         src="../assets/images/ethereum-coin.png"
         alt=""
       />
     </div>
-    <div class="flex items-center justify-center px-2">
+    <div class="flex items-center justify-center">
       <div>
         <h1 class="font-firs font-bold text-4xl mb-4">Sign Up</h1>
 
         <form
           @submit.prevent="createAccount"
-          class="flex flex-col px-4 lg:px-5 pt-5 pb-6 min-w-full w-[24rem] lg:w-[28rem] bg-[#d9d9d948] shadow-sm rounded-xl"
+          class="flex flex-col px-4 lg:px-5 pt-5 pb-6 w-full x-sm:w-[24rem] x-lg:w-[28rem] bg-[#d9d9d948] shadow-sm rounded-xl"
         >
           <div v-for="(field, key, i) in form" :key="i" class="mb-5">
             <label :for="key" class="token-setup-input-label">{{
