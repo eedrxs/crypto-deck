@@ -9,6 +9,9 @@ import { TokenForm } from "../types/Token"
 const web3 = new Web3(Web3.givenProvider)
 
 const getEthereumSigner = async () => {
+  if (!window.ethereum) {
+    throw new Error("Metamask not available on this browser")
+  }
   await window.ethereum.request({ method: "eth_requestAccounts" })
   return web3.eth.currentProvider
 }
