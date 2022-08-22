@@ -1,9 +1,11 @@
 <template>
   <header
-    class="flex justify-between items-center py-4 mx-4 md:mx-10 lg:mx-20 md:mt-4 text-crypto-blue"
+    class="flex justify-between items-center py-4 mx-4 sm:mx-8 md:mx-10 lg:mx-20 md:mt-4 text-crypto-blue"
   >
-    <div class="font-extrabold text-md md:text-4xl">CryptoDeck</div>
-    <div class="flex gap-x-4 font-medium text-[.6rem] md:text-base">
+    <div class="font-extrabold text-xl sm:text-3xl md:text-4xl">CryptoDeck</div>
+    <div
+      class="flex gap-x-4 font-semibold text-[.7rem] sm:text-[.9rem] md:text-base"
+    >
       <button class="hover:underline">
         <router-link to="/login">Sign In </router-link>
       </button>

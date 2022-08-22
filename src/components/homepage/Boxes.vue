@@ -1,5 +1,5 @@
 <template>
-  <section class="flex flex-wrap justify-between mt-16 lg:mt-24 text-white">
+  <section class="flex flex-wrap justify-between mt-24 lg:mt-24 text-white">
     <div
       class="box lg:box-lg w-full bg-crypto-blue h-[40vw] x-md:h-[35rem] mb-3"
     >
